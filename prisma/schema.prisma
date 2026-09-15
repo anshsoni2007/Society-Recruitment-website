@@ -1,0 +1,173 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  passwordHash String
+  fullName     String
+  rollNumber   String?   @unique
+  department   String?
+  yearOfStudy  Int?
+  avatarUrl    String?
+  role         String    @default("STUDENT") // "STUDENT" | "SOCIETY_LEAD" | "REVIEWER" | "SUPER_ADMIN"
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  applications       Application[]
+  societyMemberships SocietyMember[]
+  evaluations        ReviewerScore[]
+  notifications      Notification[]
+  interviewBookings  InterviewBooking[]
+}
+
+model Society {
+  id             String             @id @default(uuid())
+  name           String             @unique
+  slug           String             @unique
+  tagline        String
+  description    String
+  category       String             @default("TECHNICAL") // "TECHNICAL" | "CULTURAL" | "SPORTS" | "LITERARY" | "SOCIAL_INITIATIVE" | "ACADEMIC"
+  logoUrl        String?
+  bannerUrl      String?
+  websiteUrl     String?
+  socialLinks    String?            // JSON string: { "instagram": "...", "linkedin": "..." }
+  isHiring       Boolean            @default(true)
+  deadline       DateTime
+  capacity       Int                @default(50)
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  members        SocietyMember[]
+  applications   Application[]
+  customFields   FormField[]
+  rounds         RecruitmentRound[]
+  interviewSlots InterviewSlot[]
+}
+
+model SocietyMember {
+  id         String   @id @default(uuid())
+  userId     String
+  societyId  String
+  roleInClub String   @default("Member") // "President" | "Lead Reviewer" | "Tech Head"
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  society    Society  @relation(fields: [societyId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, societyId])
+}
+
+model RecruitmentRound {
+  id          String        @id @default(uuid())
+  societyId   String
+  name        String        // e.g. "Screening", "Code Audition", "Final Interview"
+  order       Int           @default(1)
+  description String?
+  society     Society       @relation(fields: [societyId], references: [id], onDelete: Cascade)
+  applications Application[]
+
+  @@unique([societyId, order])
+}
+
+model FormField {
+  id          String   @id @default(uuid())
+  societyId   String
+  label       String
+  fieldType   String   @default("TEXT") // "TEXT" | "TEXTAREA" | "SELECT" | "URL" | "RADIO" | "CHECKBOX"
+  placeholder String?
+  required    Boolean  @default(true)
+  options     String?  // JSON array string for selects/radios e.g. ["Web Dev", "App Dev", "AI/ML"]
+  order       Int      @default(0)
+  society     Society  @relation(fields: [societyId], references: [id], onDelete: Cascade)
+}
+
+model Application {
+  id            String            @id @default(uuid())
+  studentId     String
+  societyId     String
+  roundId       String?
+  status        String            @default("SUBMITTED") // "SUBMITTED" | "UNDER_REVIEW" | "ROUND_ADVANCED" | "INTERVIEW_SCHEDULED" | "ACCEPTED" | "REJECTED" | "WITHDRAWN"
+  responses     String            // JSON string: { [fieldId]: answer }
+  resumeUrl     String?
+  githubUrl     String?
+  portfolioUrl  String?
+  internalNotes String?
+  submittedAt   DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  student       User              @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  society       Society           @relation(fields: [societyId], references: [id], onDelete: Cascade)
+  currentRound  RecruitmentRound? @relation(fields: [roundId], references: [id])
+  evaluations   ReviewerScore[]
+  interview     InterviewBooking?
+
+  @@unique([studentId, societyId])
+}
+
+model ReviewerScore {
+  id             String      @id @default(uuid())
+  applicationId  String
+  reviewerId     String
+  criteriaScores String      // JSON string: { "technical": 8, "communication": 9, "cultureFit": 7 }
+  overallRating  Int         @default(5) // 1 to 10
+  feedback       String
+  recommendation String      @default("YES") // "STRONG_YES" | "YES" | "MAYBE" | "NO"
+  createdAt      DateTime    @default(now())
+
+  application    Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  reviewer       User        @relation(fields: [reviewerId], references: [id], onDelete: Cascade)
+
+  @@unique([applicationId, reviewerId])
+}
+
+model InterviewSlot {
+  id          String      @id @default(uuid())
+  societyId   String
+  startTime   DateTime
+  endTime     DateTime
+  location    String      // "Room 402, Student Activity Center" or "https://meet.google.com/xyz"
+  maxCapacity Int         @default(1)
+  society     Society     @relation(fields: [societyId], references: [id], onDelete: Cascade)
+  bookings    InterviewBooking[]
+}
+
+model InterviewBooking {
+  id            String        @id @default(uuid())
+  slotId        String
+  applicationId String        @unique
+  studentId     String
+  status        String        @default("CONFIRMED") // "CONFIRMED" | "CANCELLED" | "COMPLETED"
+  createdAt     DateTime      @default(now())
+
+  slot          InterviewSlot @relation(fields: [slotId], references: [id], onDelete: Cascade)
+  application   Application   @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  student       User          @relation(fields: [studentId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  title     String
+  message   String
+  type      String   @default("SYSTEM") // "STATUS_CHANGE" | "DEADLINE_ALERT" | "INTERVIEW_INVITE" | "SYSTEM"
+  isRead    Boolean  @default(false)
+  link      String?
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model MockEmailLog {
+  id        String   @id @default(uuid())
+  recipient String
+  subject   String
+  template  String
+  htmlBody  String
+  status    String   @default("SENT")
+  sentAt    DateTime @default(now())
+}
