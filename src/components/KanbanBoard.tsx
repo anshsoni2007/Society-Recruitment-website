@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { STATUS_COLORS } from "@/lib/utils";
 import { RubricScoreModal } from "./RubricScoreModal";
+import { InitialsAvatar } from "./InitialsAvatar";
 
 interface KanbanBoardProps {
   societyId: string;
@@ -132,14 +133,7 @@ export function KanbanBoard({
                         {/* Student Profile Header */}
                         <div className="flex items-start justify-between">
                           <div className="flex items-center space-x-2">
-                            <img
-                              src={
-                                app.student.avatarUrl ||
-                                "https://api.dicebear.com/7.x/avataaars/svg?seed=avatar"
-                              }
-                              alt={app.student.fullName}
-                              className="w-7 h-7 rounded-full bg-slate-800"
-                            />
+                            <InitialsAvatar name={app.student.fullName} className="h-7 w-7 text-[10px]" />
                             <div>
                               <h4 className="text-xs font-bold text-white truncate max-w-[130px]">
                                 {app.student.fullName}

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Compass,
+  Home,
   LayoutDashboard,
   Kanban,
   BarChart3,
@@ -17,6 +18,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { NotificationDropdown } from "./NotificationDropdown";
+import { InitialsAvatar } from "./InitialsAvatar";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -24,6 +26,7 @@ export function Navbar() {
   const [isRoleMenuOpen, setIsRoleMenuOpen] = useState(false);
 
   const navLinks = [
+    { label: "Home", href: "/", icon: Home },
     { label: "Explore Societies", href: "/societies", icon: Compass },
     ...(user?.role === "STUDENT"
       ? [{ label: "My Applications", href: "/dashboard/applications", icon: LayoutDashboard }]
@@ -193,11 +196,7 @@ export function Navbar() {
           {user ? (
             <div className="flex items-center space-x-2">
               <div className="flex items-center space-x-2 bg-slate-900 border border-slate-700/80 px-2.5 py-1 rounded-xl transition-all duration-200 hover:scale-105 hover:border-slate-600 hover:shadow-sm">
-                <img
-                  src={user.avatarUrl || "https://api.dicebear.com/7.x/avataaars/svg?seed=user"}
-                  alt={user.fullName}
-                  className="w-6 h-6 rounded-full bg-slate-800 ring-1 ring-blue-400/30"
-                />
+                <InitialsAvatar name={user.fullName} className="h-6 w-6 text-[9px]" />
                 <span className="text-xs font-semibold text-white hidden sm:inline max-w-[120px] truncate">
                   {user.fullName}
                 </span>

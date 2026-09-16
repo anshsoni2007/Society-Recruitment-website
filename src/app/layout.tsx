@@ -4,6 +4,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { MockEmailDrawer } from "@/components/MockEmailDrawer";
+import { PageTransition } from "@/components/PageTransition";
 
 export const metadata: Metadata = {
   title: "CrewDeck | Campus Society Recruitment & Talent Pipeline",
@@ -21,7 +22,7 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col bg-slate-950 text-slate-100 antialiased selection:bg-blue-600 selection:text-white">
         <AuthProvider>
           <Navbar />
-          <main className="flex-1 flex flex-col">{children}</main>
+          <main className="flex-1 flex flex-col"><PageTransition>{children}</PageTransition></main>
           <Footer />
           <MockEmailDrawer />
         </AuthProvider>

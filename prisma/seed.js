@@ -75,6 +75,42 @@ async function main() {
     },
   });
 
+  const shutterSpeedLead = await prisma.user.create({
+    data: {
+      email: "lead.shutterspeed@campus.edu",
+      passwordHash: hashedLeadPassword,
+      fullName: "Aarushi Sethi",
+      role: "SOCIETY_LEAD",
+      rollNumber: "2023ARB1031",
+      department: "Architecture & Planning",
+      yearOfStudy: 3,
+    },
+  });
+
+  const crescendoLead = await prisma.user.create({
+    data: {
+      email: "lead.crescendo@campus.edu",
+      passwordHash: hashedLeadPassword,
+      fullName: "Yuvraj Oberoi",
+      role: "SOCIETY_LEAD",
+      rollNumber: "2023MUB1024",
+      department: "Music & Performing Arts",
+      yearOfStudy: 3,
+    },
+  });
+
+  const enactusLead = await prisma.user.create({
+    data: {
+      email: "lead.enactus@campus.edu",
+      passwordHash: hashedLeadPassword,
+      fullName: "Simran Arora",
+      role: "SOCIETY_LEAD",
+      rollNumber: "2023MSB1068",
+      department: "Management Studies",
+      yearOfStudy: 3,
+    },
+  });
+
   const reviewerTech = await prisma.user.create({
     data: {
       email: "reviewer.tech@campus.edu",
@@ -149,7 +185,7 @@ async function main() {
       socialLinks: JSON.stringify({ instagram: "@gdg_campus", linkedin: "gdg-campus", github: "gdg-campus" }),
       isHiring: true,
       deadline: futureDeadline12Days,
-      capacity: 35,
+      capacity: 30,
     },
   });
 
@@ -166,7 +202,7 @@ async function main() {
       socialLinks: JSON.stringify({ instagram: "@robotics_guild", github: "robotics-guild" }),
       isHiring: true,
       deadline: futureDeadline10Days,
-      capacity: 25,
+      capacity: 28,
     },
   });
 
@@ -183,7 +219,7 @@ async function main() {
       socialLinks: JSON.stringify({ instagram: "@dialectic_debsoc" }),
       isHiring: true,
       deadline: futureDeadline14Days,
-      capacity: 20,
+      capacity: 26,
     },
   });
 
@@ -198,7 +234,7 @@ async function main() {
       bannerUrl: "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=1200&auto=format&fit=crop&q=80",
       isHiring: true,
       deadline: futureDeadline12Days,
-      capacity: 30,
+      capacity: 27,
     },
   });
 
@@ -213,7 +249,7 @@ async function main() {
       bannerUrl: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=1200&auto=format&fit=crop&q=80",
       isHiring: true,
       deadline: futureDeadline14Days,
-      capacity: 18,
+      capacity: 25,
     },
   });
 
@@ -228,7 +264,7 @@ async function main() {
       bannerUrl: "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=1200&auto=format&fit=crop&q=80",
       isHiring: false,
       deadline: pastDeadline, // Passed deadline to test expired banner
-      capacity: 15,
+      capacity: 25,
     },
   });
 
@@ -240,6 +276,9 @@ async function main() {
       { userId: gdgLead.id, societyId: gdgSociety.id, roleInClub: "Lead Organizer & Tech Lead" },
       { userId: roboticsLead.id, societyId: roboticsSociety.id, roleInClub: "President & AI Systems Lead" },
       { userId: debSocLead.id, societyId: debSoc.id, roleInClub: "President & Chief Adjudicator" },
+      { userId: shutterSpeedLead.id, societyId: shutterSpeed.id, roleInClub: "President & Creative Director" },
+      { userId: crescendoLead.id, societyId: crescendoMusic.id, roleInClub: "President & Music Director" },
+      { userId: enactusLead.id, societyId: enactusClub.id, roleInClub: "President & Social Impact Lead" },
       { userId: reviewerTech.id, societyId: gdgSociety.id, roleInClub: "Senior Reviewer & Panelist" },
     ],
   });
@@ -436,21 +475,27 @@ async function main() {
   ];
   const lastNames = [
     "Sharma", "Verma", "Gupta", "Kapoor", "Malhotra", "Bhatia",
-    "Khanna", "Arora", "Saxena", "Chopra",
+    "Khanna", "Arora", "Saxena", "Chopra", "Anand", "Tandon",
+    "Sood", "Ahuja", "Bedi", "Sabharwal", "Wadhwa",
   ];
   const departments = ["Computer Science & Engineering", "Electronics & Communication", "Mechanical Engineering", "Electrical Engineering"];
   const tracks = ["Web Development (Full Stack)", "Mobile App Dev (Flutter/React Native)", "AI / Machine Learning", "Cloud & DevOps", "UI/UX & Product Design"];
   const statuses = ["SUBMITTED", "UNDER_REVIEW", "ROUND_ADVANCED", "INTERVIEW_SCHEDULED", "ACCEPTED", "REJECTED"];
+  const applicantSocieties = [gdgSociety, roboticsSociety, debSoc, shutterSpeed, crescendoMusic, enactusClub];
 
-  for (let index = 0; index < 110; index += 1) {
+  for (let index = 0; index < 196; index += 1) {
     const firstName = firstNames[index % firstNames.length];
     const lastName = lastNames[Math.floor(index / firstNames.length)];
     const status = statuses[index % statuses.length];
-    const currentRound = status === "SUBMITTED" || status === "UNDER_REVIEW" || status === "REJECTED"
-      ? gdgRound1
-      : status === "ROUND_ADVANCED"
-        ? gdgRound2
-        : gdgRound3;
+    const targetSociety = applicantSocieties[index % applicantSocieties.length];
+    const isGdgApplication = targetSociety.id === gdgSociety.id;
+    const currentRound = !isGdgApplication
+      ? null
+      : status === "SUBMITTED" || status === "UNDER_REVIEW" || status === "REJECTED"
+        ? gdgRound1
+        : status === "ROUND_ADVANCED"
+          ? gdgRound2
+          : gdgRound3;
     const applicant = await prisma.user.create({
       data: {
         email: `applicant.${index + 1}@campus.edu`,
@@ -460,21 +505,22 @@ async function main() {
         rollNumber: `202${3 + (index % 3)}CS${String(1100 + index).padStart(4, "0")}`,
         department: departments[index % departments.length],
         yearOfStudy: (index % 4) + 1,
-        avatarUrl: `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(`${firstName}-${lastName}-${index}`)}`,
       },
     });
 
     await prisma.application.create({
       data: {
         studentId: applicant.id,
-        societyId: gdgSociety.id,
-        roundId: currentRound.id,
+        societyId: targetSociety.id,
+        roundId: currentRound?.id,
         status,
-        responses: JSON.stringify({
-          [gdgFieldTrack.id]: tracks[index % tracks.length],
-          [gdgFieldExp.id]: `Built a campus-focused ${tracks[index % tracks.length].toLowerCase()} project and presented it at the annual student technology showcase.`,
-          [gdgFieldCommit.id]: index % 3 === 0 ? "4 - 6 Hours / week" : "8 - 10 Hours / week",
-        }),
+        responses: isGdgApplication
+          ? JSON.stringify({
+              [gdgFieldTrack.id]: tracks[index % tracks.length],
+              [gdgFieldExp.id]: `Built a campus-focused ${tracks[index % tracks.length].toLowerCase()} project and presented it at the annual student technology showcase.`,
+              [gdgFieldCommit.id]: index % 3 === 0 ? "4 - 6 Hours / week" : "8 - 10 Hours / week",
+            })
+          : JSON.stringify({ general: "Interested in contributing consistently to the club's projects, events, and team activities." }),
         githubUrl: `https://github.com/${firstName.toLowerCase()}-${lastName.toLowerCase()}-${index + 1}`,
         internalNotes: index % 5 === 0 ? "Strong profile; shortlisted for closer review." : null,
       },

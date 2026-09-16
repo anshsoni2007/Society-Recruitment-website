@@ -22,6 +22,7 @@ import {
 import { CATEGORY_COLORS, formatDate, formatDateTime, isDeadlinePassed } from "@/lib/utils";
 import { CountdownTimer } from "@/components/CountdownTimer";
 import { useAuth } from "@/context/AuthContext";
+import { InitialsAvatar } from "@/components/InitialsAvatar";
 
 export default function SocietyDetailPage() {
   const params = useParams();
@@ -284,11 +285,7 @@ export default function SocietyDetailPage() {
             <div className="divide-y divide-slate-800/60">
               {society.members?.map((member: any) => (
                 <div key={member.id} className="py-2.5 flex items-center space-x-3 first:pt-0 last:pb-0">
-                  <img
-                    src={member.user.avatarUrl || "https://api.dicebear.com/7.x/avataaars/svg?seed=member"}
-                    alt={member.user.fullName}
-                    className="w-8 h-8 rounded-full bg-slate-800"
-                  />
+                  <InitialsAvatar name={member.user.fullName} className="h-8 w-8 text-[10px]" />
                   <div>
                     <h4 className="text-xs font-bold text-white">{member.user.fullName}</h4>
                     <span className="text-[10px] text-indigo-400">{member.roleInClub}</span>
