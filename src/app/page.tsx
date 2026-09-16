@@ -40,8 +40,8 @@ export default async function HomePage() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-tr from-blue-600/20 via-indigo-600/20 to-purple-600/20 blur-3xl rounded-full pointer-events-none -z-10" />
 
         {/* Badge Pill */}
-        <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/80 text-xs font-semibold text-blue-400 mb-6 shadow-inner">
-          <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/80 text-xs font-semibold text-blue-400 mb-6 shadow-inner transition-all duration-200 hover:scale-105 hover:border-blue-400/50 hover:ring-2 hover:ring-blue-500/20 hover:shadow-lg hover:shadow-blue-500/15 cursor-default">
+          <Sparkles className="w-3.5 h-3.5 text-blue-400 animate-pulse" />
           <span>Fall 2026 Campus Recruitment Season is Live</span>
         </div>
 
@@ -59,10 +59,10 @@ export default async function HomePage() {
         </p>
 
         {/* CTA Buttons */}
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             href="/societies"
-            className="w-full sm:w-auto flex items-center justify-center space-x-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-sm shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-105 active:scale-95 transition-all"
+            className="w-full sm:w-auto flex items-center justify-center space-x-2 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-bold text-sm shadow-xl shadow-blue-500/25 hover:shadow-2xl hover:shadow-blue-500/40 hover:scale-105 active:scale-95 border border-blue-400/50 hover:border-blue-300 ring-2 ring-blue-500/30 hover:ring-4 hover:ring-blue-400/40 transition-all duration-200"
           >
             <Compass className="w-4 h-4" />
             <span>Explore Active Societies</span>
@@ -70,7 +70,7 @@ export default async function HomePage() {
           </Link>
           <Link
             href="/login"
-            className="w-full sm:w-auto flex items-center justify-center space-x-2 px-6 py-3.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white font-semibold text-sm border border-slate-700 transition-all"
+            className="w-full sm:w-auto flex items-center justify-center space-x-2 px-7 py-3.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white font-semibold text-sm border border-slate-700/80 hover:border-indigo-400/60 hover:ring-2 hover:ring-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/20 hover:scale-105 active:scale-95 transition-all duration-200"
           >
             <span>Society Lead & Reviewer Portal</span>
           </Link>
@@ -78,19 +78,19 @@ export default async function HomePage() {
 
         {/* Metrics Ribbon */}
         <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-          <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-4 backdrop-blur-md">
+          <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-4 backdrop-blur-md transition-all duration-200 hover:scale-105 hover:border-blue-500/40 hover:ring-1 hover:ring-blue-500/20 hover:shadow-lg hover:shadow-blue-500/10 cursor-default">
             <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono">{activeSocieties}</div>
             <div className="text-xs text-slate-400 mt-1">Clubs Hiring Now</div>
           </div>
-          <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-4 backdrop-blur-md">
+          <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-4 backdrop-blur-md transition-all duration-200 hover:scale-105 hover:border-blue-500/40 hover:ring-1 hover:ring-blue-500/20 hover:shadow-lg hover:shadow-blue-500/10 cursor-default">
             <div className="text-2xl sm:text-3xl font-extrabold text-blue-400 font-mono">{totalApplications}+</div>
             <div className="text-xs text-slate-400 mt-1">Applications Processed</div>
           </div>
-          <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-4 backdrop-blur-md">
+          <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-4 backdrop-blur-md transition-all duration-200 hover:scale-105 hover:border-indigo-500/40 hover:ring-1 hover:ring-indigo-500/20 hover:shadow-lg hover:shadow-indigo-500/10 cursor-default">
             <div className="text-2xl sm:text-3xl font-extrabold text-indigo-400 font-mono">100%</div>
             <div className="text-xs text-slate-400 mt-1">Server-Enforced Deadlines</div>
           </div>
-          <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-4 backdrop-blur-md">
+          <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-4 backdrop-blur-md transition-all duration-200 hover:scale-105 hover:border-emerald-500/40 hover:ring-1 hover:ring-emerald-500/20 hover:shadow-lg hover:shadow-emerald-500/10 cursor-default">
             <div className="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono">4-Stage</div>
             <div className="text-xs text-slate-400 mt-1">Structured Rubrics</div>
           </div>
@@ -110,8 +110,8 @@ export default async function HomePage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Card 1 */}
-          <div className="rounded-3xl bg-slate-900/60 border border-slate-800/80 p-6 space-y-4 hover:border-blue-500/40 transition-all">
-            <div className="w-10 h-10 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center border border-blue-500/20">
+          <div className="rounded-3xl bg-slate-900/60 border border-slate-800/80 p-6 space-y-4 hover:border-blue-500/50 hover:ring-1 hover:ring-blue-400/30 hover:shadow-2xl hover:shadow-blue-500/15 hover:scale-[1.03] transition-all duration-300">
+            <div className="w-10 h-10 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center border border-blue-500/20 shadow-inner">
               <Kanban className="w-5 h-5" />
             </div>
             <h3 className="text-base font-bold text-white">Multi-Round Kanban Board</h3>
@@ -121,8 +121,8 @@ export default async function HomePage() {
           </div>
 
           {/* Card 2 */}
-          <div className="rounded-3xl bg-slate-900/60 border border-slate-800/80 p-6 space-y-4 hover:border-purple-500/40 transition-all">
-            <div className="w-10 h-10 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center border border-purple-500/20">
+          <div className="rounded-3xl bg-slate-900/60 border border-slate-800/80 p-6 space-y-4 hover:border-purple-500/50 hover:ring-1 hover:ring-purple-400/30 hover:shadow-2xl hover:shadow-purple-500/15 hover:scale-[1.03] transition-all duration-300">
+            <div className="w-10 h-10 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center border border-purple-500/20 shadow-inner">
               <Award className="w-5 h-5" />
             </div>
             <h3 className="text-base font-bold text-white">Standardized Rubric Scoring</h3>
@@ -132,8 +132,8 @@ export default async function HomePage() {
           </div>
 
           {/* Card 3 */}
-          <div className="rounded-3xl bg-slate-900/60 border border-slate-800/80 p-6 space-y-4 hover:border-emerald-500/40 transition-all">
-            <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20">
+          <div className="rounded-3xl bg-slate-900/60 border border-slate-800/80 p-6 space-y-4 hover:border-emerald-500/50 hover:ring-1 hover:ring-emerald-400/30 hover:shadow-2xl hover:shadow-emerald-500/15 hover:scale-[1.03] transition-all duration-300">
+            <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20 shadow-inner">
               <Calendar className="w-5 h-5" />
             </div>
             <h3 className="text-base font-bold text-white">Self-Serve Interview Booking</h3>
@@ -153,7 +153,7 @@ export default async function HomePage() {
           </div>
           <Link
             href="/societies"
-            className="text-xs font-bold text-blue-400 hover:text-blue-300 flex items-center space-x-1"
+            className="text-xs font-bold text-blue-400 hover:text-blue-300 flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border border-transparent hover:border-blue-500/40 hover:bg-blue-500/10 hover:scale-105 active:scale-95 transition-all duration-200"
           >
             <span>View all clubs ({totalSocieties})</span>
             <ArrowRight className="w-3.5 h-3.5" />

@@ -24,7 +24,7 @@ The platform includes a **1-Click Demo Persona Switcher** in the top navigation 
 
 | Role | Email | Password | Responsibilities |
 | :--- | :--- | :--- | :--- |
-| **Student** | `student.alex@campus.edu` | `Student@123` | Browse societies, submit applications, track rounds, book interview slots |
+| **Student** | `student.ayaan@campus.edu` | `Student@123` | Browse societies, submit applications, track rounds, book interview slots |
 | **Student** | `student.priya@campus.edu` | `Student@123` | Multi-club applicant with accepted offer |
 | **Society Lead** | `lead.gdg@campus.edu` | `Lead@123` | Manage GDG pipeline, advance Kanban stages, publish interview slots |
 | **Panel Reviewer** | `reviewer.tech@campus.edu` | `Reviewer@123` | Grade candidates with multi-criteria rubric scorecard |

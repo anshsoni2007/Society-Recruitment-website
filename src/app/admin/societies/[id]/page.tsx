@@ -183,7 +183,7 @@ export default function SocietyAdminPipelinePage() {
         <div className="flex items-center space-x-3">
           <button
             onClick={exportCandidatesCSV}
-            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-colors border border-slate-700"
+            className="flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all duration-200 border border-slate-700 hover:border-slate-500 hover:scale-105 active:scale-95 hover:shadow-md"
             title="Download CSV of applicants"
           >
             <Download className="w-3.5 h-3.5" />
@@ -191,7 +191,7 @@ export default function SocietyAdminPipelinePage() {
           </button>
           <Link
             href={`/societies/${society?.slug || society?.id}`}
-            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow-md"
+            className="flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:shadow-lg hover:shadow-blue-500/25 text-white text-xs font-bold transition-all duration-200 border border-blue-400/40 ring-1 ring-blue-400/30 hover:ring-2 hover:ring-blue-400/60 hover:scale-105 active:scale-95"
           >
             <span>Public Page ➔</span>
           </Link>
@@ -199,13 +199,13 @@ export default function SocietyAdminPipelinePage() {
       </div>
 
       {/* Workspace Navigation Tabs */}
-      <div className="flex items-center space-x-2 border-b border-slate-800 pb-3">
+      <div className="flex items-center space-x-2.5 border-b border-slate-800 pb-3">
         <button
           onClick={() => setActiveTab("KANBAN")}
-          className={`flex items-center space-x-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 border ${
             activeTab === "KANBAN"
-              ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
-              : "text-slate-400 hover:text-white hover:bg-slate-900"
+              ? "bg-blue-600 text-white border-blue-400 ring-2 ring-blue-400/50 shadow-lg shadow-blue-500/25 scale-105"
+              : "bg-slate-900/60 text-slate-400 border-slate-800 hover:text-white hover:border-slate-700 hover:bg-slate-800/80 hover:scale-105 active:scale-95"
           }`}
         >
           <Kanban className="w-4 h-4" />
@@ -214,10 +214,10 @@ export default function SocietyAdminPipelinePage() {
 
         <button
           onClick={() => setActiveTab("SLOTS")}
-          className={`flex items-center space-x-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 border ${
             activeTab === "SLOTS"
-              ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
-              : "text-slate-400 hover:text-white hover:bg-slate-900"
+              ? "bg-blue-600 text-white border-blue-400 ring-2 ring-blue-400/50 shadow-lg shadow-blue-500/25 scale-105"
+              : "bg-slate-900/60 text-slate-400 border-slate-800 hover:text-white hover:border-slate-700 hover:bg-slate-800/80 hover:scale-105 active:scale-95"
           }`}
         >
           <Calendar className="w-4 h-4" />

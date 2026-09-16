@@ -60,10 +60,10 @@ async function runTests() {
 
   try {
     // 1. Test Student Login
-    console.log("1. Authenticating as Student (Alex Rivera)...");
+    console.log("1. Authenticating as Student (Ayaan Khanna)...");
     const loginRes = await request("/api/auth/login", {
       method: "POST",
-      body: JSON.stringify({ email: "student.alex@campus.edu", password: "Student@123" }),
+      body: JSON.stringify({ email: "student.ayaan@campus.edu", password: "Student@123" }),
     });
     assert(loginRes.status === 200, "Student login returns 200 OK");
     const studentCookie = loginRes.cookies;
@@ -118,7 +118,7 @@ async function runTests() {
     assert(leadAppsRes.data.applications?.length > 0, "Applications found in GDG pipeline");
 
     // 7. Panel Reviewer Rubric Scoring
-    console.log("\n7. Authenticating as Panel Reviewer (Devika Nair)...");
+    console.log("\n7. Authenticating as Panel Reviewer (Rhea Khanna)...");
     const revLoginRes = await request("/api/auth/login", {
       method: "POST",
       body: JSON.stringify({ email: "reviewer.tech@campus.edu", password: "Reviewer@123" }),

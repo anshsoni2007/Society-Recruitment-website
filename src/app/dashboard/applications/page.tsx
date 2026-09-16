@@ -242,7 +242,7 @@ export default function StudentApplicationsPage() {
 
                     <button
                       onClick={() => setBookingApp(app)}
-                      className="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs shadow-md transition-all shrink-0"
+                      className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:shadow-xl hover:shadow-purple-500/30 hover:scale-105 active:scale-95 border border-purple-400/40 ring-1 ring-purple-400/30 hover:ring-2 hover:ring-purple-400/60 text-white font-bold text-xs transition-all duration-200 shrink-0"
                     >
                       {app.interview ? "Change Interview Slot" : "Book Interview Slot ➔"}
                     </button>

@@ -78,7 +78,7 @@ export default function RegisterPage() {
             required
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
-            placeholder="Alex Rivera"
+            placeholder="Ayaan Khanna"
             className="w-full bg-slate-950 border border-slate-700/80 rounded-xl p-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -92,7 +92,7 @@ export default function RegisterPage() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="alex.rivera@campus.edu"
+            placeholder="ayaan.khanna@campus.edu"
             className="w-full bg-slate-950 border border-slate-700/80 rounded-xl p-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -113,18 +113,35 @@ export default function RegisterPage() {
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-            Account Role
+          <label className="block text-xs font-semibold text-slate-300 mb-2">
+            Select Your Role
           </label>
-          <select
-            value={role}
-            onChange={(e) => setRole(e.target.value as any)}
-            className="w-full bg-slate-950 border border-slate-700/80 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
-          >
-            <option value="STUDENT">Student / Applicant</option>
-            <option value="SOCIETY_LEAD">Society Lead / Manager</option>
-            <option value="REVIEWER">Panel Reviewer</option>
-          </select>
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              { id: "STUDENT", label: "Student", desc: "Apply to clubs" },
+              { id: "SOCIETY_LEAD", label: "Society Lead", desc: "Manage pipeline" },
+              { id: "REVIEWER", label: "Reviewer", desc: "Score rubrics" },
+            ].map((r) => {
+              const isSelected = role === r.id;
+              return (
+                <button
+                  key={r.id}
+                  type="button"
+                  onClick={() => setRole(r.id as any)}
+                  className={`p-2.5 rounded-2xl text-left border transition-all duration-200 flex flex-col justify-between ${
+                    isSelected
+                      ? "bg-blue-600/20 border-2 border-blue-400 ring-2 ring-blue-500/40 shadow-lg shadow-blue-500/20 scale-105"
+                      : "bg-slate-950/70 border-slate-800 hover:border-slate-700 hover:bg-slate-800/60 hover:scale-102 active:scale-98"
+                  }`}
+                >
+                  <span className={`text-xs font-bold ${isSelected ? "text-white" : "text-slate-300"}`}>
+                    {r.label}
+                  </span>
+                  <span className="text-[10px] text-slate-400 mt-0.5">{r.desc}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
@@ -137,7 +154,7 @@ export default function RegisterPage() {
               value={rollNumber}
               onChange={(e) => setRollNumber(e.target.value)}
               placeholder="2025CSB1001"
-              className="w-full bg-slate-950 border border-slate-700/80 rounded-xl p-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+              className="w-full bg-slate-950 border border-slate-700/80 rounded-xl p-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-500/30 transition-all"
             />
           </div>
 
@@ -148,7 +165,7 @@ export default function RegisterPage() {
             <select
               value={yearOfStudy}
               onChange={(e) => setYearOfStudy(parseInt(e.target.value))}
-              className="w-full bg-slate-950 border border-slate-700/80 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
+              className="w-full bg-slate-950 border border-slate-700/80 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-500/30 transition-all"
             >
               <option value={1}>1st Year (Freshman)</option>
               <option value={2}>2nd Year (Sophomore)</option>
@@ -167,21 +184,21 @@ export default function RegisterPage() {
             value={department}
             onChange={(e) => setDepartment(e.target.value)}
             placeholder="Computer Science & Engineering"
-            className="w-full bg-slate-950 border border-slate-700/80 rounded-xl p-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+            className="w-full bg-slate-950 border border-slate-700/80 rounded-xl p-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-500/30 transition-all"
           />
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs shadow-lg hover:shadow-blue-500/25 active:scale-98 transition-all disabled:opacity-50"
+          className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs shadow-xl shadow-blue-500/20 hover:shadow-blue-500/40 hover:scale-105 active:scale-95 border border-blue-400/40 ring-1 ring-blue-400/30 hover:ring-2 hover:ring-blue-400/60 transition-all duration-200 disabled:opacity-50"
         >
           {loading ? "Creating Account..." : "Create Account"}
         </button>
 
         <p className="text-center text-xs text-slate-400 pt-2">
           Already have an account?{" "}
-          <Link href="/login" className="font-bold text-blue-400 hover:underline">
+          <Link href="/login" className="font-bold text-blue-400 hover:underline hover:text-blue-300">
             Sign in
           </Link>
         </p>

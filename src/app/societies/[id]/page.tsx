@@ -463,7 +463,7 @@ export default function SocietyDetailPage() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full py-3 px-6 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:shadow-xl hover:shadow-blue-500/25 active:scale-98 text-white font-bold text-xs flex items-center justify-center space-x-2 disabled:opacity-50 transition-all"
+                  className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:shadow-2xl hover:shadow-blue-500/35 hover:scale-105 active:scale-95 border border-blue-400/40 ring-1 ring-blue-400/30 hover:ring-2 hover:ring-blue-400/70 text-white font-bold text-xs flex items-center justify-center space-x-2 disabled:opacity-50 transition-all duration-200"
                 >
                   {submitting ? (
                     <span>Validating & Submitting...</span>

@@ -29,7 +29,7 @@ async function main() {
     data: {
       email: "admin@campus.edu",
       passwordHash: hashedAdminPassword,
-      fullName: "Dean of Student Affairs",
+      fullName: "Dr. Rakesh Malhotra",
       role: "SUPER_ADMIN",
       department: "University Administration",
       avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
@@ -53,7 +53,7 @@ async function main() {
     data: {
       email: "lead.robotics@campus.edu",
       passwordHash: hashedLeadPassword,
-      fullName: "Samantha Vance",
+      fullName: "Nandini Kapoor",
       role: "SOCIETY_LEAD",
       rollNumber: "2023ECB1089",
       department: "Electronics & Communication",
@@ -79,7 +79,7 @@ async function main() {
     data: {
       email: "reviewer.tech@campus.edu",
       passwordHash: hashedReviewerPassword,
-      fullName: "Devika Nair",
+      fullName: "Rhea Khanna",
       role: "REVIEWER",
       rollNumber: "2022CSB1008",
       department: "Computer Science",
@@ -88,11 +88,11 @@ async function main() {
     },
   });
 
-  const studentAlex = await prisma.user.create({
+  const studentAyaan = await prisma.user.create({
     data: {
-      email: "student.alex@campus.edu",
+      email: "student.ayaan@campus.edu",
       passwordHash: hashedStudentPassword,
-      fullName: "Alex Rivera",
+      fullName: "Ayaan Khanna",
       role: "STUDENT",
       rollNumber: "2025CSB1120",
       department: "Computer Science & Engineering",
@@ -114,11 +114,11 @@ async function main() {
     },
   });
 
-  const studentMarcus = await prisma.user.create({
+  const studentRohan = await prisma.user.create({
     data: {
-      email: "student.marcus@campus.edu",
+      email: "student.rohan@campus.edu",
       passwordHash: hashedStudentPassword,
-      fullName: "Marcus Chen",
+      fullName: "Rohan Bhatia",
       role: "STUDENT",
       rollNumber: "2025MEB1012",
       department: "Mechanical Engineering",
@@ -131,9 +131,9 @@ async function main() {
 
   // 2. Create Societies
   const now = new Date();
-  const futureDeadline5Days = new Date(now.getTime() + 5 * 24 * 60 * 60 * 1000);
-  const futureDeadline3Days = new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000);
-  const futureDeadline7Days = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+  const futureDeadline12Days = new Date(now.getTime() + 12 * 24 * 60 * 60 * 1000);
+  const futureDeadline10Days = new Date(now.getTime() + 10 * 24 * 60 * 60 * 1000);
+  const futureDeadline14Days = new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000);
   const pastDeadline = new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000); // For testing deadline check
 
   const gdgSociety = await prisma.society.create({
@@ -148,7 +148,7 @@ async function main() {
       websiteUrl: "https://gdg.community.dev",
       socialLinks: JSON.stringify({ instagram: "@gdg_campus", linkedin: "gdg-campus", github: "gdg-campus" }),
       isHiring: true,
-      deadline: futureDeadline5Days,
+      deadline: futureDeadline12Days,
       capacity: 35,
     },
   });
@@ -165,7 +165,7 @@ async function main() {
       websiteUrl: "https://robotics-guild.edu",
       socialLinks: JSON.stringify({ instagram: "@robotics_guild", github: "robotics-guild" }),
       isHiring: true,
-      deadline: futureDeadline3Days,
+      deadline: futureDeadline10Days,
       capacity: 25,
     },
   });
@@ -182,7 +182,7 @@ async function main() {
       websiteUrl: "https://debsoc.campus.edu",
       socialLinks: JSON.stringify({ instagram: "@dialectic_debsoc" }),
       isHiring: true,
-      deadline: futureDeadline7Days,
+      deadline: futureDeadline14Days,
       capacity: 20,
     },
   });
@@ -197,7 +197,7 @@ async function main() {
       logoUrl: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=120&auto=format&fit=crop&q=80",
       bannerUrl: "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=1200&auto=format&fit=crop&q=80",
       isHiring: true,
-      deadline: futureDeadline5Days,
+      deadline: futureDeadline12Days,
       capacity: 30,
     },
   });
@@ -212,7 +212,7 @@ async function main() {
       logoUrl: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=120&auto=format&fit=crop&q=80",
       bannerUrl: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=1200&auto=format&fit=crop&q=80",
       isHiring: true,
-      deadline: futureDeadline7Days,
+      deadline: futureDeadline14Days,
       capacity: 18,
     },
   });
@@ -355,10 +355,10 @@ async function main() {
   });
 
   // 7. Seed Applications
-  // Application 1: Alex Rivera -> GDG (Under Review / Interview Scheduled)
-  const appAlex = await prisma.application.create({
+  // Application 1: Ayaan Khanna -> GDG (Under Review / Interview Scheduled)
+  const appAyaan = await prisma.application.create({
     data: {
-      studentId: studentAlex.id,
+      studentId: studentAyaan.id,
       societyId: gdgSociety.id,
       roundId: gdgRound3.id,
       status: "INTERVIEW_SCHEDULED",
@@ -367,27 +367,27 @@ async function main() {
         [gdgFieldExp.id]: "Built a peer-to-peer campus notes exchange platform using Next.js, TypeScript, and Supabase with 400+ active student users.",
         [gdgFieldCommit.id]: "8 - 10 Hours / week",
       }),
-      githubUrl: "https://github.com/alexrivera-dev",
-      portfolioUrl: "https://alexrivera.me",
-      resumeUrl: "https://drive.google.com/alex-resume-2026.pdf",
+      githubUrl: "https://github.com/ayaankhanna-dev",
+      portfolioUrl: "https://ayaan-khanna.me",
+      resumeUrl: "https://drive.google.com/ayaan-khanna-resume-2026.pdf",
       internalNotes: "Strong candidate, great fullstack foundation and enthusiastic communicator.",
     },
   });
 
-  // Booking for Alex
+  // Booking for Ayaan
   await prisma.interviewBooking.create({
     data: {
       slotId: slot1.id,
-      applicationId: appAlex.id,
-      studentId: studentAlex.id,
+      applicationId: appAyaan.id,
+      studentId: studentAyaan.id,
       status: "CONFIRMED",
     },
   });
 
-  // Reviewer Score for Alex
+  // Reviewer Score for Ayaan
   await prisma.reviewerScore.create({
     data: {
-      applicationId: appAlex.id,
+      applicationId: appAyaan.id,
       reviewerId: reviewerTech.id,
       criteriaScores: JSON.stringify({ technical: 9, communication: 8, cultureFit: 9 }),
       overallRating: 9,
@@ -413,10 +413,10 @@ async function main() {
     },
   });
 
-  // Application 3: Marcus Chen -> GDG (Submitted / Screening)
+  // Application 3: Rohan Bhatia -> GDG (Submitted / Screening)
   await prisma.application.create({
     data: {
-      studentId: studentMarcus.id,
+      studentId: studentRohan.id,
       societyId: gdgSociety.id,
       roundId: gdgRound1.id,
       status: "SUBMITTED",
@@ -425,9 +425,61 @@ async function main() {
         [gdgFieldExp.id]: "Created a cross-platform campus mess menu and notification app in Flutter.",
         [gdgFieldCommit.id]: "4 - 6 Hours / week",
       }),
-      githubUrl: "https://github.com/marcuschen-dev",
+      githubUrl: "https://github.com/rohanbhatia-dev",
     },
   });
+
+  // Create a realistic, high-volume GDG recruitment pipeline for dashboard and Kanban demos.
+  const firstNames = [
+    "Aditya", "Aarav", "Ananya", "Bhavya", "Dhruv", "Ishita",
+    "Kartik", "Kavya", "Lakshya", "Mehak", "Nikhil", "Tanvi",
+  ];
+  const lastNames = [
+    "Sharma", "Verma", "Gupta", "Kapoor", "Malhotra", "Bhatia",
+    "Khanna", "Arora", "Saxena", "Chopra",
+  ];
+  const departments = ["Computer Science & Engineering", "Electronics & Communication", "Mechanical Engineering", "Electrical Engineering"];
+  const tracks = ["Web Development (Full Stack)", "Mobile App Dev (Flutter/React Native)", "AI / Machine Learning", "Cloud & DevOps", "UI/UX & Product Design"];
+  const statuses = ["SUBMITTED", "UNDER_REVIEW", "ROUND_ADVANCED", "INTERVIEW_SCHEDULED", "ACCEPTED", "REJECTED"];
+
+  for (let index = 0; index < 110; index += 1) {
+    const firstName = firstNames[index % firstNames.length];
+    const lastName = lastNames[Math.floor(index / firstNames.length)];
+    const status = statuses[index % statuses.length];
+    const currentRound = status === "SUBMITTED" || status === "UNDER_REVIEW" || status === "REJECTED"
+      ? gdgRound1
+      : status === "ROUND_ADVANCED"
+        ? gdgRound2
+        : gdgRound3;
+    const applicant = await prisma.user.create({
+      data: {
+        email: `applicant.${index + 1}@campus.edu`,
+        passwordHash: hashedStudentPassword,
+        fullName: `${firstName} ${lastName}`,
+        role: "STUDENT",
+        rollNumber: `202${3 + (index % 3)}CS${String(1100 + index).padStart(4, "0")}`,
+        department: departments[index % departments.length],
+        yearOfStudy: (index % 4) + 1,
+        avatarUrl: `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(`${firstName}-${lastName}-${index}`)}`,
+      },
+    });
+
+    await prisma.application.create({
+      data: {
+        studentId: applicant.id,
+        societyId: gdgSociety.id,
+        roundId: currentRound.id,
+        status,
+        responses: JSON.stringify({
+          [gdgFieldTrack.id]: tracks[index % tracks.length],
+          [gdgFieldExp.id]: `Built a campus-focused ${tracks[index % tracks.length].toLowerCase()} project and presented it at the annual student technology showcase.`,
+          [gdgFieldCommit.id]: index % 3 === 0 ? "4 - 6 Hours / week" : "8 - 10 Hours / week",
+        }),
+        githubUrl: `https://github.com/${firstName.toLowerCase()}-${lastName.toLowerCase()}-${index + 1}`,
+        internalNotes: index % 5 === 0 ? "Strong profile; shortlisted for closer review." : null,
+      },
+    });
+  }
 
   // Application 4: Priya Sharma -> Robotics Guild (Accepted)
   await prisma.application.create({
@@ -447,7 +499,7 @@ async function main() {
   await prisma.notification.createMany({
     data: [
       {
-        userId: studentAlex.id,
+        userId: studentAyaan.id,
         title: "Interview Slot Confirmed 🎉",
         message: "Your interview with Google Developer Student Club is scheduled for tomorrow at 4:00 PM.",
         type: "INTERVIEW_INVITE",
@@ -463,7 +515,7 @@ async function main() {
         link: "/dashboard/applications",
       },
       {
-        userId: studentMarcus.id,
+        userId: studentRohan.id,
         title: "Application Received",
         message: "Your application to Google Developer Student Club was successfully submitted.",
         type: "STATUS_CHANGE",
@@ -477,7 +529,7 @@ async function main() {
   await prisma.mockEmailLog.createMany({
     data: [
       {
-        recipient: "student.alex@campus.edu",
+        recipient: "student.ayaan@campus.edu",
         subject: "📅 Interview Invitation: Google Developer Student Club",
         template: "INTERVIEW_INVITATION",
         htmlBody: "Your interview for GDG has been scheduled for tomorrow at 4:00 PM in SAC 402.",
@@ -491,7 +543,7 @@ async function main() {
         status: "DELIVERED",
       },
       {
-        recipient: "student.marcus@campus.edu",
+        recipient: "student.rohan@campus.edu",
         subject: "🎉 Application Confirmed — Google Developer Student Club",
         template: "APPLICATION_SUBMITTED",
         htmlBody: "Your application has been received and queued for screening.",

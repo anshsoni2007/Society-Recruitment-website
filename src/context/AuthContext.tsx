@@ -87,7 +87,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const switchDemoRole = async (role: "STUDENT" | "SOCIETY_LEAD" | "REVIEWER" | "SUPER_ADMIN") => {
     const demoAccounts: Record<string, { email: string; pass: string }> = {
-      STUDENT: { email: "student.alex@campus.edu", pass: "Student@123" },
+      STUDENT: { email: "student.ayaan@campus.edu", pass: "Student@123" },
       SOCIETY_LEAD: { email: "lead.gdg@campus.edu", pass: "Lead@123" },
       REVIEWER: { email: "reviewer.tech@campus.edu", pass: "Reviewer@123" },
       SUPER_ADMIN: { email: "admin@campus.edu", pass: "Admin@123" },

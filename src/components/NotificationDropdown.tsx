@@ -65,24 +65,28 @@ export function NotificationDropdown() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors border border-slate-700/50"
+        className={`relative p-2 rounded-xl transition-all duration-200 hover:scale-110 active:scale-95 ${
+          isOpen
+            ? "bg-slate-800 text-white border-blue-400 ring-2 ring-blue-400/40 shadow-lg shadow-blue-500/20 border"
+            : "text-slate-400 hover:text-white hover:bg-slate-800/80 border border-slate-700/60 hover:border-blue-400/50 hover:ring-1 hover:ring-blue-400/25 hover:shadow-md hover:shadow-blue-500/10"
+        }`}
         aria-label="Notifications"
       >
         <Bell className="w-5 h-5" />
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-blue-600 text-[10px] font-bold text-white shadow-lg animate-pulse">
+          <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-[10px] font-bold text-white shadow-lg shadow-blue-500/50 ring-2 ring-slate-950 animate-pulse">
             {unreadCount}
           </span>
         )}
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 sm:w-96 rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl p-4 z-50 animate-in fade-in zoom-in-95 duration-150">
+        <div className="absolute right-0 mt-2 w-80 sm:w-96 rounded-2xl bg-slate-900 border border-slate-700/90 shadow-2xl p-4 z-50 animate-in fade-in zoom-in-95 duration-150 ring-1 ring-slate-700/50">
           <div className="flex items-center justify-between pb-3 border-b border-slate-800">
             <div className="flex items-center space-x-2">
               <span className="font-semibold text-white text-sm">Notifications</span>
               {unreadCount > 0 && (
-                <span className="text-xs bg-blue-500/20 text-blue-400 font-medium px-2 py-0.5 rounded-full">
+                <span className="text-xs bg-blue-500/20 text-blue-400 font-medium px-2 py-0.5 rounded-full border border-blue-500/30">
                   {unreadCount} new
                 </span>
               )}
@@ -90,7 +94,7 @@ export function NotificationDropdown() {
             {unreadCount > 0 && (
               <button
                 onClick={markAllAsRead}
-                className="text-xs text-slate-400 hover:text-blue-400 flex items-center space-x-1 transition-colors"
+                className="text-xs text-slate-400 hover:text-blue-400 flex items-center space-x-1 hover:scale-105 active:scale-95 transition-all"
               >
                 <CheckCheck className="w-3.5 h-3.5" />
                 <span>Mark all read</span>
@@ -107,8 +111,10 @@ export function NotificationDropdown() {
               notifications.map((n) => (
                 <div
                   key={n.id}
-                  className={`py-2.5 px-2 rounded-lg transition-colors ${
-                    n.isRead ? "text-slate-400 hover:bg-slate-800/40" : "bg-blue-500/5 text-slate-200 hover:bg-blue-500/10"
+                  className={`py-2.5 px-3 rounded-xl transition-all duration-150 border ${
+                    n.isRead
+                      ? "text-slate-400 border-transparent hover:border-slate-800 hover:bg-slate-800/40 hover:scale-[1.01]"
+                      : "bg-blue-500/10 text-slate-200 border-blue-500/30 hover:bg-blue-500/15 hover:border-blue-500/50 hover:scale-[1.01] shadow-sm"
                   }`}
                 >
                   <div className="flex items-start justify-between">
@@ -124,7 +130,7 @@ export function NotificationDropdown() {
                     <Link
                       href={n.link}
                       onClick={() => setIsOpen(false)}
-                      className="inline-flex items-center space-x-1 text-[11px] text-blue-400 hover:underline mt-1.5 font-medium"
+                      className="inline-flex items-center space-x-1 text-[11px] text-blue-400 hover:text-blue-300 hover:underline mt-1.5 font-medium hover:translate-x-0.5 transition-transform"
                     >
                       <span>View details</span>
                       <ExternalLink className="w-3 h-3" />
