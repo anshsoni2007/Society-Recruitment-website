@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Sparkles, ShieldCheck, Zap, Heart } from "lucide-react";
+import { ShieldCheck, Zap, Heart } from "lucide-react";
 
 export function Footer() {
   return (
@@ -9,9 +9,11 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div className="md:col-span-2 space-y-3">
             <div className="flex items-center space-x-2">
-              <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white">
-                <Sparkles className="w-4 h-4" />
-              </div>
+              <img
+                src="/brand/crewdeck-logo.png"
+                alt="CrewDeck logo"
+                className="h-8 w-8 rounded-lg object-cover ring-1 ring-blue-400/40"
+              />
               <span className="font-extrabold text-white text-base">CrewDeck</span>
             </div>
             <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
