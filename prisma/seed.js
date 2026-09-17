@@ -354,6 +354,38 @@ async function main() {
       order: 1,
     },
   });
+
+  // Form Fields for Autonomous Robotics & AI Guild
+  await prisma.formField.createMany({
+    data: [
+      { societyId: roboticsSociety.id, label: "Which area interests you most?", fieldType: "SELECT", options: JSON.stringify(["Mechanical Design & CAD", "Electronics & Embedded Systems", "AI / Computer Vision", "Autonomous Navigation"]), required: true, order: 1 },
+      { societyId: roboticsSociety.id, label: "Describe a build, experiment, or technical problem you would like to work on", fieldType: "TEXTAREA", placeholder: "Share your idea, relevant skills, and how you would approach it...", required: true, order: 2 },
+    ],
+  });
+
+  // Form Fields for ShutterSpeed Visual Arts & Film
+  await prisma.formField.createMany({
+    data: [
+      { societyId: shutterSpeed.id, label: "Your primary creative interest", fieldType: "SELECT", options: JSON.stringify(["Photography", "Videography", "Film Editing", "Graphic Design", "Writing & Visual Storytelling"]), required: true, order: 1 },
+      { societyId: shutterSpeed.id, label: "Tell us about a visual story you would like to create on campus", fieldType: "TEXTAREA", placeholder: "Describe the idea, mood, and what makes it interesting...", required: true, order: 2 },
+    ],
+  });
+
+  // Form Fields for Crescendo Music Guild
+  await prisma.formField.createMany({
+    data: [
+      { societyId: crescendoMusic.id, label: "Your main musical role", fieldType: "SELECT", options: JSON.stringify(["Vocalist", "Instrumentalist", "Composer / Songwriter", "Sound Engineering", "Event Management"]), required: true, order: 1 },
+      { societyId: crescendoMusic.id, label: "Share your musical experience and one performance you are proud of", fieldType: "TEXTAREA", placeholder: "You may mention training, instruments, genres, or performances...", required: true, order: 2 },
+    ],
+  });
+
+  // Form Fields for Enactus Social Enterprise
+  await prisma.formField.createMany({
+    data: [
+      { societyId: enactusClub.id, label: "Which impact area matters most to you?", fieldType: "SELECT", options: JSON.stringify(["Education", "Environmental Sustainability", "Women Empowerment", "Livelihoods & Entrepreneurship", "Public Health"]), required: true, order: 1 },
+      { societyId: enactusClub.id, label: "Describe a local problem you would like to solve through a sustainable project", fieldType: "TEXTAREA", placeholder: "Explain the problem, people affected, and your initial idea...", required: true, order: 2 },
+    ],
+  });
   await prisma.formField.create({
     data: {
       societyId: debSoc.id,
