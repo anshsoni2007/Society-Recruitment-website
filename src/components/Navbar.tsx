@@ -13,7 +13,6 @@ import {
   LogIn,
   UserCheck,
   ChevronDown,
-  Sparkles,
   ShieldAlert,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
@@ -50,11 +49,11 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center space-x-2.5 group transition-all duration-200 hover:scale-105 active:scale-95">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-pink-500 p-0.5 shadow-lg shadow-blue-500/20 group-hover:shadow-blue-500/40 group-hover:ring-2 group-hover:ring-blue-400/40 transition-all duration-200">
-            <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-              <Sparkles className="w-4 h-4 text-blue-400 group-hover:rotate-12 transition-transform duration-300" />
-            </div>
-          </div>
+          <img
+            src="/brand/crewdeck-logo.png"
+            alt="CrewDeck logo"
+            className="h-10 w-10 rounded-xl object-cover shadow-lg shadow-blue-500/20 ring-1 ring-blue-400/40 transition-all duration-200 group-hover:scale-105 group-hover:shadow-blue-500/40"
+          />
           <div className="flex flex-col">
             <span className="font-extrabold text-lg tracking-tight text-white flex items-center space-x-1">
               <span>Crew</span>

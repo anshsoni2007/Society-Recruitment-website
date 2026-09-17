@@ -48,7 +48,7 @@ export default async function HomePage() {
         {/* Hero Title */}
         <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight sm:leading-tight">
           Where Campus Talent Finds Its{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-pink-400">
+          <span className="text-sky-400">
             Crew
           </span>
         </h1>
