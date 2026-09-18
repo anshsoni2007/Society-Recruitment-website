@@ -14,14 +14,18 @@ import {
   UserCheck,
   ChevronDown,
   ShieldAlert,
+  Moon,
+  Sun,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { NotificationDropdown } from "./NotificationDropdown";
 import { InitialsAvatar } from "./InitialsAvatar";
+import { useTheme } from "@/context/ThemeContext";
 
 export function Navbar() {
   const pathname = usePathname();
   const { user, logout, switchDemoRole } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const [isRoleMenuOpen, setIsRoleMenuOpen] = useState(false);
 
   const navLinks = [
@@ -89,6 +93,15 @@ export function Navbar() {
 
         {/* Right Section: Demo Role Switcher & Auth */}
         <div className="flex items-center space-x-3">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-700/80 bg-slate-900 text-slate-300 hover:border-blue-400 hover:text-blue-500 hover:shadow-md hover:shadow-blue-500/15"
+            title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
           {/* Quick Demo Switcher Pill */}
           <div className="relative">
             <button

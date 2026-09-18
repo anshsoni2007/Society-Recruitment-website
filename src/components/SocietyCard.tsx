@@ -95,7 +95,7 @@ export function SocietyCard({ society }: SocietyCardProps) {
         <div className="pt-2 mt-auto">
           <Link
             href={`/societies/${society.slug || society.id}`}
-            className="w-full flex items-center justify-center space-x-1.5 py-2.5 px-4 rounded-xl text-xs font-bold text-white bg-slate-800/90 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:shadow-lg hover:shadow-blue-500/25 hover:border-blue-400/50 hover:ring-2 hover:ring-blue-400/30 hover:scale-105 active:scale-95 transition-all duration-200 border border-slate-700/80"
+            className="society-card-action w-full flex items-center justify-center space-x-1.5 py-2.5 px-4 rounded-xl text-xs font-bold text-white bg-slate-800/90 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:shadow-lg hover:shadow-blue-500/25 hover:border-blue-400/50 hover:ring-2 hover:ring-blue-400/30 hover:scale-105 active:scale-95 transition-all duration-200 border border-slate-700/80"
           >
             <span>{isOpen ? "View & Apply" : "View Club Details"}</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
