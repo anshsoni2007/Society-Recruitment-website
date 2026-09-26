@@ -92,8 +92,8 @@ export function RubricScoreModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-150">
-      <div className="bg-slate-900 border border-slate-700 w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-150 sm:items-center sm:p-6">
+      <div className="bg-slate-900 border border-slate-700 w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[calc(100dvh-2rem)] sm:max-h-[90vh]">
         {/* Header */}
         <div className="px-6 py-4 border-b border-slate-800 bg-slate-950/60 flex items-center justify-between">
           <div className="flex items-center space-x-3">
@@ -118,7 +118,7 @@ export function RubricScoreModal({
         </div>
 
         {/* Content Form */}
-        <form onSubmit={handleSubmit} className="p-6 overflow-y-auto space-y-6">
+        <form onSubmit={handleSubmit} className="min-h-0 flex-1 p-6 overflow-y-auto space-y-6">
           {error && (
             <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs flex items-center space-x-2">
               <AlertCircle className="w-4 h-4 shrink-0" />

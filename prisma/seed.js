@@ -167,9 +167,9 @@ async function main() {
 
   // 2. Create Societies
   const now = new Date();
-  const futureDeadline12Days = new Date(now.getTime() + 12 * 24 * 60 * 60 * 1000);
-  const futureDeadline10Days = new Date(now.getTime() + 10 * 24 * 60 * 60 * 1000);
-  const futureDeadline14Days = new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000);
+  const futureDeadline22Days = new Date(now.getTime() + 22 * 24 * 60 * 60 * 1000);
+  const futureDeadline20Days = new Date(now.getTime() + 20 * 24 * 60 * 60 * 1000);
+  const futureDeadline24Days = new Date(now.getTime() + 24 * 24 * 60 * 60 * 1000);
   const pastDeadline = new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000); // For testing deadline check
 
   const gdgSociety = await prisma.society.create({
@@ -184,7 +184,7 @@ async function main() {
       websiteUrl: "https://gdg.community.dev",
       socialLinks: JSON.stringify({ instagram: "@gdg_campus", linkedin: "gdg-campus", github: "gdg-campus" }),
       isHiring: true,
-      deadline: futureDeadline12Days,
+      deadline: futureDeadline22Days,
       capacity: 30,
     },
   });
@@ -201,7 +201,7 @@ async function main() {
       websiteUrl: "https://robotics-guild.edu",
       socialLinks: JSON.stringify({ instagram: "@robotics_guild", github: "robotics-guild" }),
       isHiring: true,
-      deadline: futureDeadline10Days,
+      deadline: futureDeadline20Days,
       capacity: 28,
     },
   });
@@ -218,7 +218,7 @@ async function main() {
       websiteUrl: "https://debsoc.campus.edu",
       socialLinks: JSON.stringify({ instagram: "@dialectic_debsoc" }),
       isHiring: true,
-      deadline: futureDeadline14Days,
+      deadline: futureDeadline24Days,
       capacity: 26,
     },
   });
@@ -233,7 +233,7 @@ async function main() {
       logoUrl: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=120&auto=format&fit=crop&q=80",
       bannerUrl: "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=1200&auto=format&fit=crop&q=80",
       isHiring: true,
-      deadline: futureDeadline12Days,
+      deadline: futureDeadline22Days,
       capacity: 27,
     },
   });
@@ -248,7 +248,7 @@ async function main() {
       logoUrl: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=120&auto=format&fit=crop&q=80",
       bannerUrl: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=1200&auto=format&fit=crop&q=80",
       isHiring: true,
-      deadline: futureDeadline14Days,
+      deadline: futureDeadline24Days,
       capacity: 25,
     },
   });

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Users,
   ChevronRight,
@@ -35,6 +35,17 @@ export function KanbanBoard({
   const [selectedAppForScoring, setSelectedAppForScoring] = useState<any | null>(null);
   const [activeDetailApp, setActiveDetailApp] = useState<any | null>(null);
   const [updatingId, setUpdatingId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!activeDetailApp && !selectedAppForScoring) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [activeDetailApp, selectedAppForScoring]);
 
   const columns = [
     {
@@ -300,8 +311,8 @@ export function KanbanBoard({
 
       {/* Application Details Slide-in / Modal */}
       {activeDetailApp && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-150">
-          <div className="bg-slate-900 border border-slate-700 w-full max-w-xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+        <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-150 sm:items-center sm:p-6">
+          <div className="bg-slate-900 border border-slate-700 w-full max-w-xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[calc(100dvh-2rem)] sm:max-h-[85vh]">
             <div className="px-6 py-4 border-b border-slate-800 bg-slate-950/60 flex items-center justify-between">
               <h3 className="text-sm font-bold text-white">
                 Application Responses: {activeDetailApp.student.fullName}
@@ -314,7 +325,7 @@ export function KanbanBoard({
               </button>
             </div>
 
-            <div className="p-6 overflow-y-auto space-y-4 text-xs">
+            <div className="min-h-0 flex-1 p-6 overflow-y-auto space-y-4 text-xs">
               <div className="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
                 <div className="flex justify-between">
                   <span className="text-slate-400">Email:</span>

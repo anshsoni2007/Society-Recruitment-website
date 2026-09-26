@@ -24,9 +24,11 @@ import {
   Award,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function RecruitmentAnalyticsPage() {
   const { user } = useAuth();
+  const { theme } = useTheme();
   const [data, setData] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -62,6 +64,10 @@ export default function RecruitmentAnalyticsPage() {
   }
 
   const { metrics, funnel, statusDistribution, categoryBreakdown } = data;
+  const chartColors = theme === "light"
+    ? { grid: "#94a3b8", axis: "#334155", muted: "#475569", tooltipBackground: "#ffffff", tooltipBorder: "#64748b", tooltipText: "#0f172a" }
+    : { grid: "#1e293b", axis: "#94a3b8", muted: "#64748b", tooltipBackground: "#0f172a", tooltipBorder: "#334155", tooltipText: "#f8fafc" };
+  const tooltipStyle = { backgroundColor: chartColors.tooltipBackground, borderColor: chartColors.tooltipBorder, borderRadius: "12px", fontSize: "12px", color: chartColors.tooltipText };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full space-y-8">
@@ -139,11 +145,13 @@ export default function RecruitmentAnalyticsPage() {
           <div className="h-64 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={funnel} layout="vertical" margin={{ left: 30, right: 30 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                <XAxis type="number" stroke="#64748b" tick={{ fontSize: 11 }} />
-                <YAxis dataKey="stage" type="category" stroke="#94a3b8" tick={{ fontSize: 11 }} width={120} />
+                <CartesianGrid strokeDasharray="3 3" stroke={chartColors.grid} />
+                <XAxis type="number" stroke={chartColors.muted} tick={{ fontSize: 11, fill: chartColors.muted }} />
+                <YAxis dataKey="stage" type="category" stroke={chartColors.axis} tick={{ fontSize: 11, fill: chartColors.axis }} width={120} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: "#0f172a", borderColor: "#334155", borderRadius: "12px", fontSize: "12px" }}
+                  contentStyle={tooltipStyle}
+                  labelStyle={{ color: chartColors.tooltipText, fontWeight: 700 }}
+                  itemStyle={{ color: chartColors.tooltipText }}
                 />
                 <Bar dataKey="count" radius={[0, 8, 8, 0]}>
                   {funnel.map((entry: any, index: number) => (
@@ -171,7 +179,11 @@ export default function RecruitmentAnalyticsPage() {
                   cx="50%"
                   cy="50%"
                   outerRadius={80}
-                  label={({ name, percent }) => `${name.slice(0, 4)}: ${(percent * 100).toFixed(0)}%`}
+                  label={({ name, percent, x, y }: any) => (
+                    <text x={x} y={y} fill={theme === "light" ? "#334155" : "#e2e8f0"} fontSize={12} fontWeight={700} textAnchor={x > 250 ? "start" : "end"}>
+                      {`${name.slice(0, 4)}: ${(percent * 100).toFixed(0)}%`}
+                    </text>
+                  )}
                   labelLine={false}
                 >
                   {categoryBreakdown.map((entry: any, index: number) => {
@@ -180,7 +192,9 @@ export default function RecruitmentAnalyticsPage() {
                   })}
                 </Pie>
                 <Tooltip
-                  contentStyle={{ backgroundColor: "#0f172a", borderColor: "#334155", borderRadius: "12px", fontSize: "12px" }}
+                  contentStyle={tooltipStyle}
+                  labelStyle={{ color: chartColors.tooltipText, fontWeight: 700 }}
+                  itemStyle={{ color: chartColors.tooltipText }}
                 />
               </PieChart>
             </ResponsiveContainer>

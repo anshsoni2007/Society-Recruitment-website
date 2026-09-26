@@ -91,7 +91,9 @@ html.light ::-webkit-scrollbar-track { background: #f1f5f9; }
 html.light ::-webkit-scrollbar-thumb { background: #94a3b8; }
 
 .route-transition {
-  animation: page-enter 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  /* Do not retain a transform after the animation: a transformed ancestor
+     makes fixed dialogs position against the page rather than the viewport. */
+  animation: page-enter 360ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 a,
