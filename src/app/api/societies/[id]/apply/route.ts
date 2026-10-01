@@ -22,6 +22,10 @@ export async function POST(
       },
       include: {
         customFields: true,
+        members: {
+          where: { user: { role: "SOCIETY_LEAD" } },
+          include: { user: { select: { email: true, fullName: true } } },
+        },
         rounds: {
           orderBy: { order: "asc" },
         },
@@ -141,6 +145,23 @@ export async function POST(
         status: "Submitted",
       },
     });
+
+    // Route every submitted application to the leads of this specific club.
+    // This keeps each lead's inbox and pipeline separate from other societies.
+    await Promise.all(
+      society.members.map((member) =>
+        sendMockEmail({
+          recipient: member.user.email,
+          subject: `New applicant for review: ${auth.user.fullName} — ${society.name}`,
+          template: "APPLICATION_SUBMITTED",
+          data: {
+            studentName: auth.user.fullName,
+            societyName: society.name,
+            status: "New application awaiting screening",
+          },
+        })
+      )
+    );
 
     return NextResponse.json(
       {

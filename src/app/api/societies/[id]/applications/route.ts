@@ -16,7 +16,7 @@ export async function GET(
     const roundId = searchParams.get("roundId");
     const search = searchParams.get("search");
 
-    const whereClause: any = { societyId: id };
+    const whereClause: any = { societyId: auth.societyId };
 
     if (status && status !== "ALL") {
       whereClause.status = status;

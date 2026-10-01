@@ -118,8 +118,22 @@ export default function SocietiesPage() {
           {Array.from({ length: 6 }).map((_, i) => (
             <div
               key={i}
-              className="h-80 rounded-3xl bg-slate-900/40 border border-slate-800/80 animate-pulse"
-            />
+              className="rounded-3xl bg-slate-900/60 border border-slate-800/80 overflow-hidden shadow-xl animate-pulse space-y-4"
+            >
+              <div className="h-36 bg-slate-800/80 relative">
+                <div className="absolute -bottom-4 left-6 w-14 h-14 rounded-2xl bg-slate-700 border-2 border-slate-800" />
+              </div>
+              <div className="p-6 pt-6 space-y-3">
+                <div className="h-5 w-3/4 bg-slate-800 rounded-lg" />
+                <div className="h-3 w-full bg-slate-800/70 rounded-md" />
+                <div className="h-3 w-2/3 bg-slate-800/50 rounded-md" />
+                <div className="pt-4 flex justify-between items-center border-t border-slate-800/80">
+                  <div className="h-4 w-24 bg-slate-800 rounded-md" />
+                  <div className="h-4 w-16 bg-slate-800 rounded-md" />
+                </div>
+                <div className="h-10 w-full bg-slate-800/90 rounded-xl" />
+              </div>
+            </div>
           ))}
         </div>
       ) : societies.length === 0 ? (

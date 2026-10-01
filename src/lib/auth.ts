@@ -134,20 +134,27 @@ export async function requireRole(
 
 export async function verifySocietyAdmin(
   req: NextRequest,
-  societyId: string
-): Promise<{ user: SessionUser; isAdmin: boolean } | { error: NextResponse }> {
+  societyIdOrSlug: string
+): Promise<{ user: SessionUser; isAdmin: boolean; societyId: string } | { error: NextResponse }> {
   const auth = await requireAuth(req);
   if ("error" in auth) return auth;
 
+  const society = await prisma.society.findFirst({
+    where: { OR: [{ id: societyIdOrSlug }, { slug: societyIdOrSlug }] },
+    select: { id: true },
+  });
+
+  const targetSocietyId = society ? society.id : societyIdOrSlug;
+
   if (auth.user.role === "SUPER_ADMIN") {
-    return { user: auth.user, isAdmin: true };
+    return { user: auth.user, isAdmin: true, societyId: targetSocietyId };
   }
 
   const isMember = auth.user.societyMemberships?.some(
-    (m) => m.societyId === societyId
+    (m: any) => m.societyId === targetSocietyId || m.society?.slug === societyIdOrSlug
   );
 
-  if (!isMember && auth.user.role !== "SOCIETY_LEAD") {
+  if (!isMember) {
     return {
       error: NextResponse.json(
         { error: "Access forbidden. You are not a manager of this society." },
@@ -156,5 +163,5 @@ export async function verifySocietyAdmin(
     };
   }
 
-  return { user: auth.user, isAdmin: true };
+  return { user: auth.user, isAdmin: true, societyId: targetSocietyId };
 }

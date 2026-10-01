@@ -153,7 +153,7 @@ export default function RegisterPage() {
               type="text"
               value={rollNumber}
               onChange={(e) => setRollNumber(e.target.value)}
-              placeholder="2025CSB1001"
+              placeholder="2026CSB1001"
               className="w-full bg-slate-950 border border-slate-700/80 rounded-xl p-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-500/30 transition-all"
             />
           </div>

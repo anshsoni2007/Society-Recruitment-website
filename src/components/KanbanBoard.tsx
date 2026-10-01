@@ -14,6 +14,7 @@ import {
   Clock,
   MessageSquare,
   Sparkles,
+  Loader2,
 } from "lucide-react";
 import { STATUS_COLORS } from "@/lib/utils";
 import { RubricScoreModal } from "./RubricScoreModal";
@@ -218,16 +219,20 @@ export function KanbanBoard({
                               <button
                                 disabled={updatingId === app.id}
                                 onClick={() => handleUpdateStatus(app.id, "ROUND_ADVANCED")}
-                                className="flex-1 py-1 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 text-[10px] font-bold border border-indigo-500/30 transition-colors"
+                                className="flex-1 py-1 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 text-[10px] font-bold border border-indigo-500/30 transition-colors flex items-center justify-center space-x-1"
                               >
-                                Advance ➔
+                                {updatingId === app.id ? (
+                                  <Loader2 className="w-3 h-3 animate-spin" />
+                                ) : (
+                                  <span>Advance ➔</span>
+                                )}
                               </button>
                               <button
                                 disabled={updatingId === app.id}
                                 onClick={() => handleUpdateStatus(app.id, "REJECTED")}
-                                className="px-2 py-1 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-[10px] font-bold border border-red-500/20 transition-colors"
+                                className="px-2 py-1 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-[10px] font-bold border border-red-500/20 transition-colors flex items-center justify-center"
                               >
-                                ✕
+                                {updatingId === app.id ? <Loader2 className="w-3 h-3 animate-spin" /> : "✕"}
                               </button>
                             </>
                           )}
@@ -237,16 +242,20 @@ export function KanbanBoard({
                               <button
                                 disabled={updatingId === app.id}
                                 onClick={() => handleUpdateStatus(app.id, "INTERVIEW_SCHEDULED")}
-                                className="flex-1 py-1 rounded-lg bg-purple-600/20 hover:bg-purple-600/40 text-purple-300 text-[10px] font-bold border border-purple-500/30 transition-colors"
+                                className="flex-1 py-1 rounded-lg bg-purple-600/20 hover:bg-purple-600/40 text-purple-300 text-[10px] font-bold border border-purple-500/30 transition-colors flex items-center justify-center space-x-1"
                               >
-                                Call Interview ➔
+                                {updatingId === app.id ? (
+                                  <Loader2 className="w-3 h-3 animate-spin" />
+                                ) : (
+                                  <span>Call Interview ➔</span>
+                                )}
                               </button>
                               <button
                                 disabled={updatingId === app.id}
                                 onClick={() => handleUpdateStatus(app.id, "REJECTED")}
-                                className="px-2 py-1 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-[10px] font-bold border border-red-500/20 transition-colors"
+                                className="px-2 py-1 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-[10px] font-bold border border-red-500/20 transition-colors flex items-center justify-center"
                               >
-                                ✕
+                                {updatingId === app.id ? <Loader2 className="w-3 h-3 animate-spin" /> : "✕"}
                               </button>
                             </>
                           )}
@@ -256,16 +265,20 @@ export function KanbanBoard({
                               <button
                                 disabled={updatingId === app.id}
                                 onClick={() => handleUpdateStatus(app.id, "ACCEPTED")}
-                                className="flex-1 py-1 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-300 text-[10px] font-bold border border-emerald-500/30 transition-colors"
+                                className="flex-1 py-1 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-300 text-[10px] font-bold border border-emerald-500/30 transition-colors flex items-center justify-center space-x-1"
                               >
-                                Accept & Induct 🌟
+                                {updatingId === app.id ? (
+                                  <Loader2 className="w-3 h-3 animate-spin" />
+                                ) : (
+                                  <span>Accept & Induct 🌟</span>
+                                )}
                               </button>
                               <button
                                 disabled={updatingId === app.id}
                                 onClick={() => handleUpdateStatus(app.id, "REJECTED")}
-                                className="px-2 py-1 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-[10px] font-bold border border-red-500/20 transition-colors"
+                                className="px-2 py-1 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-[10px] font-bold border border-red-500/20 transition-colors flex items-center justify-center"
                               >
-                                ✕
+                                {updatingId === app.id ? <Loader2 className="w-3 h-3 animate-spin" /> : "✕"}
                               </button>
                             </>
                           )}
@@ -274,9 +287,13 @@ export function KanbanBoard({
                             <button
                               disabled={updatingId === app.id}
                               onClick={() => handleUpdateStatus(app.id, "SUBMITTED")}
-                              className="w-full py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-bold transition-colors"
+                              className="w-full py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-bold transition-colors flex items-center justify-center space-x-1"
                             >
-                              Restore to Screening
+                              {updatingId === app.id ? (
+                                <Loader2 className="w-3 h-3 animate-spin" />
+                              ) : (
+                                <span>Restore to Screening</span>
+                              )}
                             </button>
                           )}
 

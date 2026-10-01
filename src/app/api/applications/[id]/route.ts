@@ -62,7 +62,7 @@ export async function GET(
       (m) => m.societyId === application.societyId
     );
 
-    if (!isOwner && !isSuperAdmin && !isSocietyManager && auth.user.role !== "SOCIETY_LEAD") {
+    if (!isOwner && !isSuperAdmin && !isSocietyManager) {
       return NextResponse.json(
         { error: "Access denied" },
         { status: 403 }

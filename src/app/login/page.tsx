@@ -4,11 +4,11 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LogIn, Sparkles, AlertCircle, CheckCircle2, UserCheck } from "lucide-react";
-import { useAuth } from "@/context/AuthContext";
+import { DEMO_LEADS, useAuth } from "@/context/AuthContext";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { login, switchDemoRole } = useAuth();
+  const { login, switchDemoRole, switchDemoLead } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -28,6 +28,8 @@ export default function LoginPage() {
     }
   };
 
+  const [showLeads, setShowLeads] = useState(false);
+
   const handleQuickDemo = async (role: "STUDENT" | "SOCIETY_LEAD" | "REVIEWER" | "SUPER_ADMIN") => {
     setLoading(true);
     await switchDemoRole(role);
@@ -40,11 +42,17 @@ export default function LoginPage() {
     }
   };
 
+  const handleLeadSelect = async (email: string) => {
+    setLoading(true);
+    await switchDemoLead(email);
+    router.push("/societies");
+  };
+
   return (
     <div className="max-w-md mx-auto px-4 py-16 w-full space-y-6">
       <div className="text-center space-y-2">
-        <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white mx-auto shadow-lg shadow-blue-500/25">
-          <Sparkles className="w-6 h-6" />
+        <div className="w-12 h-12 rounded-2xl bg-slate-900 flex items-center justify-center mx-auto shadow-lg shadow-blue-500/25 ring-1 ring-blue-400/40 overflow-hidden">
+          <img src="/brand/crewdeck-logo.png" alt="CrewDeck logo" className="h-full w-full object-cover" />
         </div>
         <h1 className="text-2xl font-extrabold text-white tracking-tight">
           Sign In to CrewDeck
@@ -60,52 +68,88 @@ export default function LoginPage() {
           <UserCheck className="w-4 h-4" />
           <span>Quick 1-Click Demo Login</span>
         </div>
-        <div className="grid grid-cols-2 gap-2.5">
-          <button
-            type="button"
-            onClick={() => handleQuickDemo("STUDENT")}
-            className="p-3 rounded-2xl bg-slate-950 hover:bg-slate-800/80 border border-slate-800 hover:border-blue-500/60 hover:ring-2 hover:ring-blue-500/25 hover:shadow-lg hover:shadow-blue-500/15 hover:scale-105 active:scale-95 text-left transition-all duration-200 text-xs"
-          >
-            <div className="font-bold text-white flex items-center justify-between">
-              <span>Student</span>
-              <span className="w-2 h-2 rounded-full bg-blue-500" />
+        
+        {!showLeads ? (
+          <div className="grid grid-cols-2 gap-2.5 animate-in fade-in duration-200">
+            {/* Student */}
+            <button
+              type="button"
+              onClick={() => handleQuickDemo("STUDENT")}
+              className="p-3 rounded-2xl bg-slate-950 hover:bg-slate-800/80 border border-slate-800 hover:border-blue-500/60 hover:ring-2 hover:ring-blue-500/25 hover:shadow-lg hover:shadow-blue-500/15 hover:scale-105 active:scale-95 text-left transition-all duration-200 text-xs"
+            >
+              <div className="font-bold text-white flex items-center justify-between">
+                <span>Student</span>
+                <span className="w-2 h-2 rounded-full bg-blue-500" />
+              </div>
+              <div className="text-[10px] text-slate-400">Ayaan Khanna</div>
+            </button>
+
+            {/* Society Lead Trigger */}
+            <button
+              type="button"
+              onClick={() => setShowLeads(true)}
+              className="p-3 rounded-2xl bg-slate-950 hover:bg-slate-800/80 border border-indigo-500/30 hover:border-indigo-500/70 hover:ring-2 hover:ring-indigo-500/25 hover:shadow-lg hover:shadow-indigo-500/15 hover:scale-105 active:scale-95 text-left transition-all duration-200 text-xs"
+            >
+              <div className="font-bold text-white flex items-center justify-between">
+                <span>Society Lead</span>
+                <span className="text-[10px] font-medium text-indigo-400">6 Leads →</span>
+              </div>
+              <div className="text-[10px] text-slate-400">Select club workspace</div>
+            </button>
+
+            {/* Reviewer */}
+            <button
+              type="button"
+              onClick={() => handleQuickDemo("REVIEWER")}
+              className="p-3 rounded-2xl bg-slate-950 hover:bg-slate-800/80 border border-slate-800 hover:border-purple-500/60 hover:ring-2 hover:ring-purple-500/25 hover:shadow-lg hover:shadow-purple-500/15 hover:scale-105 active:scale-95 text-left transition-all duration-200 text-xs"
+            >
+              <div className="font-bold text-white flex items-center justify-between">
+                <span>Reviewer</span>
+                <span className="w-2 h-2 rounded-full bg-purple-500" />
+              </div>
+              <div className="text-[10px] text-slate-400">Rhea Khanna</div>
+            </button>
+
+            {/* Super Admin */}
+            <button
+              type="button"
+              onClick={() => handleQuickDemo("SUPER_ADMIN")}
+              className="p-3 rounded-2xl bg-slate-950 hover:bg-slate-800/80 border border-slate-800 hover:border-pink-500/60 hover:ring-2 hover:ring-pink-500/25 hover:shadow-lg hover:shadow-pink-500/15 hover:scale-105 active:scale-95 text-left transition-all duration-200 text-xs"
+            >
+              <div className="font-bold text-white flex items-center justify-between">
+                <span>Super Admin</span>
+                <span className="w-2 h-2 rounded-full bg-pink-500" />
+              </div>
+              <div className="text-[10px] text-slate-400">Dr. Rakesh Malhotra</div>
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-2.5 animate-in fade-in slide-in-from-right-2 duration-200">
+            <div className="flex items-center justify-between">
+              <button
+                type="button"
+                onClick={() => setShowLeads(false)}
+                className="text-xs font-bold text-indigo-400 hover:text-indigo-300"
+              >
+                ← Back to Roles
+              </button>
+              <span className="text-[10px] text-slate-400 font-bold uppercase">Select Lead Workspace</span>
             </div>
-            <div className="text-[10px] text-slate-400">Ayaan Khanna</div>
-          </button>
-          <button
-            type="button"
-            onClick={() => handleQuickDemo("SOCIETY_LEAD")}
-            className="p-3 rounded-2xl bg-slate-950 hover:bg-slate-800/80 border border-slate-800 hover:border-indigo-500/60 hover:ring-2 hover:ring-indigo-500/25 hover:shadow-lg hover:shadow-indigo-500/15 hover:scale-105 active:scale-95 text-left transition-all duration-200 text-xs"
-          >
-            <div className="font-bold text-white flex items-center justify-between">
-              <span>Society Lead</span>
-              <span className="w-2 h-2 rounded-full bg-indigo-500" />
+            <div className="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto pr-1">
+              {DEMO_LEADS.map((lead) => (
+                <button
+                  key={lead.email}
+                  type="button"
+                  onClick={() => handleLeadSelect(lead.email)}
+                  className="rounded-xl border border-indigo-500/30 bg-indigo-500/10 p-2.5 text-left text-xs transition-all hover:bg-indigo-500/20 hover:border-indigo-400 hover:scale-105 active:scale-95"
+                >
+                  <span className="block font-bold text-white text-xs">{lead.name}</span>
+                  <span className="text-[10px] text-indigo-300">{lead.club}</span>
+                </button>
+              ))}
             </div>
-            <div className="text-[10px] text-slate-400">GDG Organizer</div>
-          </button>
-          <button
-            type="button"
-            onClick={() => handleQuickDemo("REVIEWER")}
-            className="p-3 rounded-2xl bg-slate-950 hover:bg-slate-800/80 border border-slate-800 hover:border-purple-500/60 hover:ring-2 hover:ring-purple-500/25 hover:shadow-lg hover:shadow-purple-500/15 hover:scale-105 active:scale-95 text-left transition-all duration-200 text-xs"
-          >
-            <div className="font-bold text-white flex items-center justify-between">
-              <span>Reviewer</span>
-              <span className="w-2 h-2 rounded-full bg-purple-500" />
-            </div>
-            <div className="text-[10px] text-slate-400">Rhea Khanna</div>
-          </button>
-          <button
-            type="button"
-            onClick={() => handleQuickDemo("SUPER_ADMIN")}
-            className="p-3 rounded-2xl bg-slate-950 hover:bg-slate-800/80 border border-slate-800 hover:border-pink-500/60 hover:ring-2 hover:ring-pink-500/25 hover:shadow-lg hover:shadow-pink-500/15 hover:scale-105 active:scale-95 text-left transition-all duration-200 text-xs"
-          >
-            <div className="font-bold text-white flex items-center justify-between">
-              <span>Super Admin</span>
-              <span className="w-2 h-2 rounded-full bg-pink-500" />
-            </div>
-            <div className="text-[10px] text-slate-400">Dr. Rakesh Malhotra</div>
-          </button>
-        </div>
+          </div>
+        )}
       </div>
 
       {/* Login Form */}

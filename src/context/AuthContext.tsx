@@ -11,7 +11,17 @@ interface AuthContextType {
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
   switchDemoRole: (role: "STUDENT" | "SOCIETY_LEAD" | "REVIEWER" | "SUPER_ADMIN") => Promise<void>;
+  switchDemoLead: (email: string) => Promise<void>;
 }
+
+export const DEMO_LEADS = [
+  { email: "lead.gdg@campus.edu", name: "Arjun Mehta", club: "GDG" },
+  { email: "lead.robotics@campus.edu", name: "Nandini Kapoor", club: "Robotics & AI Guild" },
+  { email: "lead.debsoc@campus.edu", name: "Kabir Sengupta", club: "DebSoc" },
+  { email: "lead.shutterspeed@campus.edu", name: "Aarushi Sethi", club: "ShutterSpeed" },
+  { email: "lead.crescendo@campus.edu", name: "Yuvraj Oberoi", club: "Crescendo" },
+  { email: "lead.enactus@campus.edu", name: "Simran Arora", club: "Enactus" },
+];
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -99,6 +109,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const switchDemoLead = async (email: string) => {
+    if (DEMO_LEADS.some((lead) => lead.email === email)) {
+      await login(email, "Lead@123");
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -109,6 +125,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         logout,
         refreshUser,
         switchDemoRole,
+        switchDemoLead,
       }}
     >
       {children}

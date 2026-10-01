@@ -97,7 +97,22 @@ export default function StudentApplicationsPage() {
       {loading ? (
         <div className="space-y-4">
           {Array.from({ length: 3 }).map((_, i) => (
-            <div key={i} className="h-44 rounded-3xl bg-slate-900/40 border border-slate-800 animate-pulse" />
+            <div key={i} className="rounded-3xl bg-slate-900/60 border border-slate-800/80 p-6 animate-pulse space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 rounded-2xl bg-slate-800 shrink-0" />
+                  <div className="space-y-2">
+                    <div className="h-5 w-48 bg-slate-800 rounded-lg" />
+                    <div className="h-3 w-32 bg-slate-800/60 rounded-md" />
+                  </div>
+                </div>
+                <div className="h-7 w-28 bg-slate-800 rounded-full" />
+              </div>
+              <div className="h-16 bg-slate-800/40 rounded-2xl p-4 flex items-center justify-between">
+                <div className="h-4 w-36 bg-slate-800/80 rounded-md" />
+                <div className="h-8 w-32 bg-slate-800 rounded-xl" />
+              </div>
+            </div>
           ))}
         </div>
       ) : applications.length === 0 ? (

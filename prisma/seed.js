@@ -502,22 +502,45 @@ async function main() {
 
   // Create a realistic, high-volume GDG recruitment pipeline for dashboard and Kanban demos.
   const firstNames = [
-    "Aditya", "Aarav", "Ananya", "Bhavya", "Dhruv", "Ishita",
-    "Kartik", "Kavya", "Lakshya", "Mehak", "Nikhil", "Tanvi",
+    "Aarav", "Aanya", "Abhinav", "Aditi", "Aditya", "Advait", "Ahana", "Akash",
+    "Amrita", "Anand", "Ananya", "Aniruddh", "Anushka", "Arjun", "Arnav", "Avani",
+    "Bhavya", "Chaitanya", "Dev", "Diya", "Dhruv", "Esha", "Gaurav", "Gauri",
+    "Harsh", "Ira", "Ishaan", "Ishita", "Kabir", "Kavya", "Karan", "Khushi",
+    "Krish", "Kriti", "Laksh", "Lavanya", "Madhav", "Manan", "Meera", "Mehak",
+    "Mihir", "Myra", "Nakul", "Navya", "Nayan", "Neel", "Neha", "Nikhil",
+    "Nisha", "Nitin", "Om", "Parth", "Pranav", "Prisha", "Rahul", "Rhea",
+    "Rishi", "Rohan", "Riya", "Rudra", "Saisha", "Sameer", "Samyak", "Sanya",
+    "Shaurya", "Shreya", "Siddharth", "Simran", "Sneha", "Sparsh", "Suhana", "Tanisha",
+    "Tanvi", "Tarun", "Utkarsh", "Vaanya", "Varun", "Vedant", "Vihan", "Yash",
+    "Yuvraj", "Zoya", "Aarush", "Devansh", "Kashvi", "Reyansh"
   ];
   const lastNames = [
-    "Sharma", "Verma", "Gupta", "Kapoor", "Malhotra", "Bhatia",
-    "Khanna", "Arora", "Saxena", "Chopra", "Anand", "Tandon",
-    "Sood", "Ahuja", "Bedi", "Sabharwal", "Wadhwa",
+    "Acharya", "Agarwal", "Ahluwalia", "Ahuja", "Anand", "Arora", "Bande", "Banerjee",
+    "Bansal", "Bardia", "Basu", "Bedi", "Bhatia", "Bhattacharya", "Bose", "Chakraborty",
+    "Chawla", "Chopra", "Choudhury", "Das", "Deshmukh", "Deshpande", "Dube", "Dutt",
+    "Dutta", "Gaikwad", "Gill", "Gokhale", "Goyal", "Gupta", "Iyer", "Jain",
+    "Joshi", "Kakkar", "Kapoor", "Kashyap", "Kaushik", "Khanna", "Kulkarni", "Kumar",
+    "Mahajan", "Malhotra", "Mehta", "Mishra", "Mukherjee", "Nair", "Narang", "Natarajan",
+    "Nigam", "Oberoi", "Pandey", "Patel", "Pathak", "Patil", "Pillai", "Pradhan",
+    "Rao", "Rastogi", "Rathore", "Roy", "Sabharwal", "Saha", "Saini", "Saxena",
+    "Sen", "Sengupta", "Sethi", "Sharma", "Shetty", "Shukla", "Singhal", "Singh",
+    "Sinha", "Somani", "Sood", "Srinivasan", "Srivastava", "Subramanian", "Tandon", "Thakur",
+    "Tripathi", "Trivedi", "Varma", "Venkatesh", "Verma", "Vyasa", "Wadhwa", "Yadav"
   ];
-  const departments = ["Computer Science & Engineering", "Electronics & Communication", "Mechanical Engineering", "Electrical Engineering"];
+  const departments = [
+    "Computer Science & Engineering", "Electronics & Communication Engineering",
+    "Mechanical Engineering", "Electrical Engineering", "Civil Engineering",
+    "Information Technology", "Mathematics & Computing", "Biotechnology",
+    "Architecture & Planning", "Economics", "Management Studies", "Design",
+  ];
+  const departmentCodes = ["CS", "EC", "ME", "EE", "CE", "IT", "MC", "BT", "AR", "ECON", "MS", "DS"];
   const tracks = ["Web Development (Full Stack)", "Mobile App Dev (Flutter/React Native)", "AI / Machine Learning", "Cloud & DevOps", "UI/UX & Product Design"];
   const statuses = ["SUBMITTED", "UNDER_REVIEW", "ROUND_ADVANCED", "INTERVIEW_SCHEDULED", "ACCEPTED", "REJECTED"];
   const applicantSocieties = [gdgSociety, roboticsSociety, debSoc, shutterSpeed, crescendoMusic, enactusClub];
 
   for (let index = 0; index < 196; index += 1) {
     const firstName = firstNames[index % firstNames.length];
-    const lastName = lastNames[Math.floor(index / firstNames.length)];
+    const lastName = lastNames[(index * 13 + 5) % lastNames.length];
     const status = statuses[index % statuses.length];
     const targetSociety = applicantSocieties[index % applicantSocieties.length];
     const isGdgApplication = targetSociety.id === gdgSociety.id;
@@ -534,7 +557,7 @@ async function main() {
         passwordHash: hashedStudentPassword,
         fullName: `${firstName} ${lastName}`,
         role: "STUDENT",
-        rollNumber: `202${3 + (index % 3)}CS${String(1100 + index).padStart(4, "0")}`,
+        rollNumber: `202${3 + (index % 3)}${departmentCodes[index % departmentCodes.length]}${String(1100 + index).padStart(4, "0")}`,
         department: departments[index % departments.length],
         yearOfStudy: (index % 4) + 1,
       },

@@ -36,7 +36,7 @@ export async function PATCH(
       (m) => m.societyId === application.societyId
     );
 
-    if (!isSuperAdmin && !isSocietyManager && auth.user.role !== "SOCIETY_LEAD") {
+    if (!isSuperAdmin && !isSocietyManager) {
       return NextResponse.json(
         { error: "Unauthorized to modify this application" },
         { status: 403 }

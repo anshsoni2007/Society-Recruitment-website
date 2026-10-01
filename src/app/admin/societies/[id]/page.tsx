@@ -149,9 +149,27 @@ export default function SocietyAdminPipelinePage() {
 
   if (loading && !society) {
     return (
-      <div className="max-w-7xl mx-auto px-4 py-16 space-y-6 animate-pulse">
-        <div className="h-44 bg-slate-900 rounded-3xl" />
-        <div className="h-96 bg-slate-900 rounded-3xl" />
+      <div className="max-w-7xl mx-auto px-4 py-8 space-y-6 animate-pulse">
+        <div className="h-28 bg-slate-900/80 border border-slate-800 rounded-3xl p-6 flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <div className="w-14 h-14 bg-slate-800 rounded-2xl" />
+            <div className="space-y-2">
+              <div className="h-5 w-56 bg-slate-800 rounded-lg" />
+              <div className="h-3 w-40 bg-slate-800/60 rounded-md" />
+            </div>
+          </div>
+          <div className="h-10 w-36 bg-slate-800 rounded-xl" />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="h-[480px] rounded-3xl bg-slate-900/60 border border-slate-800 p-4 space-y-4">
+              <div className="h-6 w-3/4 bg-slate-800 rounded-md" />
+              <div className="h-24 bg-slate-800/60 rounded-2xl" />
+              <div className="h-24 bg-slate-800/60 rounded-2xl" />
+              <div className="h-24 bg-slate-800/60 rounded-2xl" />
+            </div>
+          ))}
+        </div>
       </div>
     );
   }

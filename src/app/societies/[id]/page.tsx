@@ -154,7 +154,7 @@ export default function SocietyDetailPage() {
             alt={society.name}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/15" />
 
           {/* Top Badges */}
           <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
@@ -186,10 +186,10 @@ export default function SocietyDetailPage() {
                 />
               </div>
               <div className="space-y-1">
-                <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                <h1 className="club-hero-text text-2xl sm:text-3xl font-extrabold tracking-tight">
                   {society.name}
                 </h1>
-                <p className="text-xs sm:text-sm text-slate-300 max-w-xl">
+                <p className="club-hero-subtext text-xs sm:text-sm max-w-xl">
                   {society.tagline}
                 </p>
               </div>

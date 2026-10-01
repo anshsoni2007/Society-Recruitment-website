@@ -24,11 +24,11 @@ import {
   Award,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
-import { useTheme } from "@/context/ThemeContext";
+import { useAppTheme } from "@/context/AppThemeContext";
 
 export default function RecruitmentAnalyticsPage() {
   const { user } = useAuth();
-  const { theme } = useTheme();
+  const { theme } = useAppTheme();
   const [data, setData] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
 
