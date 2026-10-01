@@ -22,6 +22,7 @@ import {
 import { KanbanBoard } from "@/components/KanbanBoard";
 import { useAuth } from "@/context/AuthContext";
 import { formatDateTime } from "@/lib/utils";
+import { getCachedData, setCachedData } from "@/lib/cache";
 
 export default function SocietyAdminPipelinePage() {
   const params = useParams();
@@ -45,27 +46,25 @@ export default function SocietyAdminPipelinePage() {
   const [applicantSearch, setApplicantSearch] = useState("");
 
   const fetchData = async () => {
-    setLoading(true);
+    const cacheKey = `admin_society_dashboard_${id}`;
+    const cached = getCachedData<any>(cacheKey, 15000);
+    if (cached) {
+      setSociety(cached.society);
+      setApplications(cached.applications || []);
+      setSlots(cached.interviewSlots || []);
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+
     try {
-      const [socRes, appsRes, slotsRes] = await Promise.all([
-        fetch(`/api/societies/${id}`),
-        fetch(`/api/societies/${id}/applications`),
-        fetch(`/api/societies/${id}/interview-slots`),
-      ]);
-
-      if (socRes.ok) {
-        const socData = await socRes.json();
-        setSociety(socData.society);
-      }
-
-      if (appsRes.ok) {
-        const appsData = await appsRes.json();
-        setApplications(appsData.applications || []);
-      }
-
-      if (slotsRes.ok) {
-        const slotsData = await slotsRes.json();
-        setSlots(slotsData.slots || []);
+      const res = await fetch(`/api/societies/${id}/dashboard`);
+      if (res.ok) {
+        const data = await res.json();
+        setSociety(data.society);
+        setApplications(data.applications || []);
+        setSlots(data.interviewSlots || []);
+        setCachedData(cacheKey, data);
       }
     } catch (err) {
       console.error(err);

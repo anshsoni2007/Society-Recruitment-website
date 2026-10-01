@@ -60,6 +60,8 @@ model SocietyMember {
   society    Society  @relation(fields: [societyId], references: [id], onDelete: Cascade)
 
   @@unique([userId, societyId])
+  @@index([userId])
+  @@index([societyId])
 }
 
 model RecruitmentRound {
@@ -72,6 +74,7 @@ model RecruitmentRound {
   applications Application[]
 
   @@unique([societyId, order])
+  @@index([societyId])
 }
 
 model FormField {
@@ -84,6 +87,8 @@ model FormField {
   options     String?  // JSON array string for selects/radios e.g. ["Web Dev", "App Dev", "AI/ML"]
   order       Int      @default(0)
   society     Society  @relation(fields: [societyId], references: [id], onDelete: Cascade)
+
+  @@index([societyId])
 }
 
 model Application {
@@ -107,6 +112,9 @@ model Application {
   interview     InterviewBooking?
 
   @@unique([studentId, societyId])
+  @@index([societyId])
+  @@index([studentId])
+  @@index([status])
 }
 
 model ReviewerScore {
@@ -123,6 +131,8 @@ model ReviewerScore {
   reviewer       User        @relation(fields: [reviewerId], references: [id], onDelete: Cascade)
 
   @@unique([applicationId, reviewerId])
+  @@index([applicationId])
+  @@index([reviewerId])
 }
 
 model InterviewSlot {
@@ -134,6 +144,8 @@ model InterviewSlot {
   maxCapacity Int         @default(1)
   society     Society     @relation(fields: [societyId], references: [id], onDelete: Cascade)
   bookings    InterviewBooking[]
+
+  @@index([societyId])
 }
 
 model InterviewBooking {
@@ -147,6 +159,9 @@ model InterviewBooking {
   slot          InterviewSlot @relation(fields: [slotId], references: [id], onDelete: Cascade)
   application   Application   @relation(fields: [applicationId], references: [id], onDelete: Cascade)
   student       User          @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([slotId])
+  @@index([studentId])
 }
 
 model Notification {
@@ -160,6 +175,9 @@ model Notification {
   createdAt DateTime @default(now())
 
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([isRead])
 }
 
 model MockEmailLog {

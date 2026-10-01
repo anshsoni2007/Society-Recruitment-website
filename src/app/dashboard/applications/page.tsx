@@ -19,6 +19,8 @@ import { STATUS_COLORS, formatDateTime, formatDate, isDeadlinePassed } from "@/l
 import { useAuth } from "@/context/AuthContext";
 import { InterviewBookingModal } from "@/components/InterviewBookingModal";
 
+import { getCachedData, setCachedData } from "@/lib/cache";
+
 export default function StudentApplicationsPage() {
   const { user } = useAuth();
   const [applications, setApplications] = useState<any[]>([]);
@@ -27,12 +29,22 @@ export default function StudentApplicationsPage() {
   const [withdrawingId, setWithdrawingId] = useState<string | null>(null);
 
   const fetchMyApplications = async () => {
-    setLoading(true);
+    const cacheKey = `my_applications_${user?.id || "anon"}`;
+    const cached = getCachedData<any[]>(cacheKey, 20000);
+    if (cached) {
+      setApplications(cached);
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+
     try {
       const res = await fetch("/api/applications/my");
       if (res.ok) {
         const data = await res.json();
-        setApplications(data.applications || []);
+        const freshApps = data.applications || [];
+        setApplications(freshApps);
+        setCachedData(cacheKey, freshApps);
       }
     } catch (err) {
       console.error(err);

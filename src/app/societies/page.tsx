@@ -14,6 +14,8 @@ const CATEGORIES = [
   { id: "ACADEMIC", label: "Academic" },
 ];
 
+import { getCachedData, setCachedData } from "@/lib/cache";
+
 export default function SocietiesPage() {
   const [societies, setSocieties] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -22,17 +24,27 @@ export default function SocietiesPage() {
   const [hiringOnly, setHiringOnly] = useState(false);
 
   const fetchSocieties = async () => {
-    setLoading(true);
-    try {
-      const params = new URLSearchParams();
-      if (selectedCategory !== "ALL") params.append("category", selectedCategory);
-      if (search.trim()) params.append("search", search.trim());
-      if (hiringOnly) params.append("isHiring", "true");
+    const params = new URLSearchParams();
+    if (selectedCategory !== "ALL") params.append("category", selectedCategory);
+    if (search.trim()) params.append("search", search.trim());
+    if (hiringOnly) params.append("isHiring", "true");
 
+    const cacheKey = `societies_${params.toString()}`;
+    const cached = getCachedData<any[]>(cacheKey, 30000);
+    if (cached) {
+      setSocieties(cached);
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+
+    try {
       const res = await fetch(`/api/societies?${params.toString()}`);
       if (res.ok) {
         const data = await res.json();
-        setSocieties(data.societies || []);
+        const freshSocieties = data.societies || [];
+        setSocieties(freshSocieties);
+        setCachedData(cacheKey, freshSocieties);
       }
     } catch (err) {
       console.error(err);
